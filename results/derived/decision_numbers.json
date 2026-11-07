@@ -1,0 +1,713 @@
+{
+ "half_width": 1.2450017423182709,
+ "m": 126,
+ "ndcg20": {
+  "reversals": 7,
+  "tied_best": {
+   "amazon_books|uniform": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "amazon_books|sqrt_pop": [
+    "uniform",
+    "popularity",
+    "inbatch",
+    "inbatch_logq"
+   ],
+   "amazon_books|popularity": [
+    "popularity",
+    "inbatch"
+   ],
+   "hotelrec|uniform": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "hotelrec|sqrt_pop": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "hotelrec|popularity": [
+    "popularity",
+    "inbatch"
+   ],
+   "yelp|uniform": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "yelp|sqrt_pop": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "yelp|popularity": [
+    "popularity",
+    "inbatch"
+   ],
+   "google_connecticut|uniform": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "google_connecticut|sqrt_pop": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "google_connecticut|popularity": [
+    "popularity",
+    "inbatch"
+   ],
+   "goodreads_all|uniform": [
+    "uniform"
+   ],
+   "goodreads_all|sqrt_pop": [
+    "uniform",
+    "popularity",
+    "inbatch"
+   ],
+   "goodreads_all|popularity": [
+    "popularity",
+    "inbatch"
+   ],
+   "netflix|uniform": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "netflix|sqrt_pop": [
+    "uniform",
+    "popularity",
+    "inbatch",
+    "inbatch_logq"
+   ],
+   "netflix|popularity": [
+    "popularity",
+    "inbatch"
+   ],
+   "ml20m|uniform": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "ml20m|sqrt_pop": [
+    "uniform",
+    "popularity",
+    "inbatch",
+    "inbatch_logq"
+   ],
+   "ml20m|popularity": [
+    "popularity",
+    "inbatch"
+   ]
+  },
+  "minimax_set": {
+   "amazon_books": [
+    "uniform",
+    "popularity",
+    "inbatch",
+    "inbatch_logq"
+   ],
+   "hotelrec": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "yelp": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "google_connecticut": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "goodreads_all": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "netflix": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "ml20m": [
+    "uniform",
+    "inbatch_logq"
+   ]
+  },
+  "minimax_regret": {
+   "amazon_books": 4.129837207336923,
+   "hotelrec": 2.5168683307048187,
+   "yelp": 4.3165773046917835,
+   "google_connecticut": 3.6543655696751216,
+   "goodreads_all": 13.54384424501162,
+   "netflix": 4.609504320854574,
+   "ml20m": 4.86032798898354
+  },
+  "worst": {
+   "amazon_books|uniform": 4.356090704874251,
+   "amazon_books|popularity": 6.531192799772107,
+   "amazon_books|inbatch": 6.4071069668717655,
+   "amazon_books|inbatch_logq": 4.129837207336923,
+   "hotelrec|uniform": 2.9266103462776805,
+   "hotelrec|popularity": 10.213849541055218,
+   "hotelrec|inbatch": 10.21421552366563,
+   "hotelrec|inbatch_logq": 2.5168683307048187,
+   "yelp|uniform": 4.565494132613864,
+   "yelp|popularity": 13.346969422411405,
+   "yelp|inbatch": 13.308242297101032,
+   "yelp|inbatch_logq": 4.3165773046917835,
+   "google_connecticut|uniform": 3.6727278288547964,
+   "google_connecticut|popularity": 13.274984547124333,
+   "google_connecticut|inbatch": 13.253134253534487,
+   "google_connecticut|inbatch_logq": 3.6543655696751216,
+   "goodreads_all|uniform": 13.54384424501162,
+   "goodreads_all|popularity": 22.264800830269472,
+   "goodreads_all|inbatch": 22.991095672923237,
+   "goodreads_all|inbatch_logq": 13.698353909982416,
+   "netflix|uniform": 4.609504320854574,
+   "netflix|popularity": 12.035150828962276,
+   "netflix|inbatch": 12.071511758916206,
+   "netflix|inbatch_logq": 4.719311636223914,
+   "ml20m|uniform": 4.86032798898354,
+   "ml20m|popularity": 14.559131773142985,
+   "ml20m|inbatch": 14.541389386451618,
+   "ml20m|inbatch_logq": 5.057227218231331
+  },
+  "loss_mean_max": {
+   "uniform->sqrt_pop": [
+    0.2850277057954274,
+    0.8235233608064547,
+    0.0
+   ],
+   "uniform->popularity": [
+    5.419718787410788,
+    13.54384424501162,
+    2.5168683307048187
+   ],
+   "sqrt_pop->uniform": [
+    6.982528853662471,
+    22.264800830269472,
+    0.0
+   ],
+   "sqrt_pop->popularity": [
+    2.099187461361799,
+    4.3165773046917835,
+    0.0
+   ],
+   "popularity->uniform": [
+    13.25524226563771,
+    22.991095672923237,
+    6.4071069668717655
+   ],
+   "popularity->sqrt_pop": [
+    1.3793993820531922,
+    3.1582741364394735,
+    0.0
+   ]
+  },
+  "pick": {
+   "amazon_books|uniform": "inbatch_logq",
+   "amazon_books|sqrt_pop": "inbatch_logq",
+   "amazon_books|popularity": "inbatch",
+   "hotelrec|uniform": "inbatch_logq",
+   "hotelrec|sqrt_pop": "inbatch_logq",
+   "hotelrec|popularity": "inbatch",
+   "yelp|uniform": "inbatch_logq",
+   "yelp|sqrt_pop": "inbatch_logq",
+   "yelp|popularity": "inbatch",
+   "google_connecticut|uniform": "inbatch_logq",
+   "google_connecticut|sqrt_pop": "inbatch_logq",
+   "google_connecticut|popularity": "inbatch",
+   "goodreads_all|uniform": "uniform",
+   "goodreads_all|sqrt_pop": "popularity",
+   "goodreads_all|popularity": "inbatch",
+   "netflix|uniform": "inbatch_logq",
+   "netflix|sqrt_pop": "inbatch",
+   "netflix|popularity": "inbatch",
+   "ml20m|uniform": "inbatch_logq",
+   "ml20m|sqrt_pop": "inbatch",
+   "ml20m|popularity": "inbatch"
+  },
+  "maximin_pick": {
+   "amazon_books": "inbatch",
+   "hotelrec": "inbatch",
+   "yelp": "inbatch",
+   "google_connecticut": "inbatch",
+   "goodreads_all": "inbatch",
+   "netflix": "inbatch",
+   "ml20m": "inbatch"
+  },
+  "equal_weight_pick": {
+   "amazon_books": "inbatch_logq",
+   "hotelrec": "inbatch_logq",
+   "yelp": "inbatch_logq",
+   "google_connecticut": "inbatch_logq",
+   "goodreads_all": "uniform",
+   "netflix": "inbatch_logq",
+   "ml20m": "uniform"
+  },
+  "equal_weight_margin": {
+   "amazon_books": 1.0886800826784295,
+   "hotelrec": 3.396174491691596,
+   "yelp": 4.049979709616242,
+   "google_connecticut": 4.130427923456185,
+   "goodreads_all": 2.658032347191785,
+   "netflix": 2.191229120423751,
+   "ml20m": 3.0317036834256026
+  },
+  "breakeven_weight_popularity": {
+   "amazon_books": 0.60807,
+   "hotelrec": 0.80231,
+   "yelp": 0.75509,
+   "google_connecticut": 0.78387,
+   "goodreads_all": 0.62311,
+   "netflix": 0.71962,
+   "ml20m": 0.74577
+  },
+  "min_drop_uniform_to_popularity": 2.6673108710230906,
+  "minimax_set_without": {
+   "uniform": {
+    "amazon_books": [
+     "popularity",
+     "inbatch"
+    ],
+    "hotelrec": [
+     "uniform",
+     "popularity",
+     "inbatch",
+     "inbatch_logq"
+    ],
+    "yelp": [
+     "uniform",
+     "popularity",
+     "inbatch",
+     "inbatch_logq"
+    ],
+    "google_connecticut": [
+     "uniform",
+     "popularity",
+     "inbatch",
+     "inbatch_logq"
+    ],
+    "goodreads_all": [
+     "popularity",
+     "inbatch"
+    ],
+    "netflix": [
+     "popularity",
+     "inbatch"
+    ],
+    "ml20m": [
+     "popularity",
+     "inbatch"
+    ]
+   },
+   "sqrt_pop": {
+    "amazon_books": [
+     "uniform",
+     "popularity",
+     "inbatch",
+     "inbatch_logq"
+    ],
+    "hotelrec": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "yelp": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "google_connecticut": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "goodreads_all": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "netflix": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "ml20m": [
+     "uniform",
+     "inbatch_logq"
+    ]
+   },
+   "popularity": {
+    "amazon_books": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "hotelrec": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "yelp": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "google_connecticut": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "goodreads_all": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "netflix": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "ml20m": [
+     "uniform",
+     "inbatch_logq"
+    ]
+   }
+  }
+ },
+ "hr10": {
+  "reversals": 7,
+  "tied_best": {
+   "amazon_books|uniform": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "amazon_books|sqrt_pop": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "amazon_books|popularity": [
+    "popularity",
+    "inbatch"
+   ],
+   "hotelrec|uniform": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "hotelrec|sqrt_pop": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "hotelrec|popularity": [
+    "popularity",
+    "inbatch"
+   ],
+   "yelp|uniform": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "yelp|sqrt_pop": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "yelp|popularity": [
+    "popularity",
+    "inbatch"
+   ],
+   "google_connecticut|uniform": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "google_connecticut|sqrt_pop": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "google_connecticut|popularity": [
+    "popularity",
+    "inbatch"
+   ],
+   "goodreads_all|uniform": [
+    "uniform"
+   ],
+   "goodreads_all|sqrt_pop": [
+    "uniform",
+    "popularity",
+    "inbatch"
+   ],
+   "goodreads_all|popularity": [
+    "popularity",
+    "inbatch"
+   ],
+   "netflix|uniform": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "netflix|sqrt_pop": [
+    "popularity",
+    "inbatch"
+   ],
+   "netflix|popularity": [
+    "popularity",
+    "inbatch"
+   ],
+   "ml20m|uniform": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "ml20m|sqrt_pop": [
+    "uniform",
+    "popularity",
+    "inbatch",
+    "inbatch_logq"
+   ],
+   "ml20m|popularity": [
+    "popularity",
+    "inbatch"
+   ]
+  },
+  "minimax_set": {
+   "amazon_books": [
+    "uniform",
+    "popularity",
+    "inbatch",
+    "inbatch_logq"
+   ],
+   "hotelrec": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "yelp": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "google_connecticut": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "goodreads_all": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "netflix": [
+    "uniform",
+    "inbatch_logq"
+   ],
+   "ml20m": [
+    "uniform",
+    "inbatch_logq"
+   ]
+  },
+  "minimax_regret": {
+   "amazon_books": 5.435227272727268,
+   "hotelrec": 3.9515909090909105,
+   "yelp": 7.477954545454548,
+   "google_connecticut": 6.418181818181818,
+   "goodreads_all": 18.978863636363638,
+   "netflix": 6.969545454545455,
+   "ml20m": 7.600227272727273
+  },
+  "worst": {
+   "amazon_books|uniform": 5.771590909090911,
+   "amazon_books|popularity": 7.486590909090914,
+   "amazon_books|inbatch": 7.376590909090908,
+   "amazon_books|inbatch_logq": 5.435227272727268,
+   "hotelrec|uniform": 4.608409090909092,
+   "hotelrec|popularity": 14.271136363636359,
+   "hotelrec|inbatch": 14.31318181818181,
+   "hotelrec|inbatch_logq": 3.9515909090909105,
+   "yelp|uniform": 7.9227272727272755,
+   "yelp|popularity": 19.017045454545453,
+   "yelp|inbatch": 18.947272727272733,
+   "yelp|inbatch_logq": 7.477954545454548,
+   "google_connecticut|uniform": 6.49613636363636,
+   "google_connecticut|popularity": 19.11522727272727,
+   "google_connecticut|inbatch": 19.081590909090902,
+   "google_connecticut|inbatch_logq": 6.418181818181818,
+   "goodreads_all|uniform": 18.978863636363638,
+   "goodreads_all|popularity": 25.46795454545454,
+   "goodreads_all|inbatch": 26.395909090909086,
+   "goodreads_all|inbatch_logq": 19.361136363636366,
+   "netflix|uniform": 6.969545454545455,
+   "netflix|popularity": 19.56227272727273,
+   "netflix|inbatch": 19.59977272727273,
+   "netflix|inbatch_logq": 7.162272727272728,
+   "ml20m|uniform": 7.600227272727273,
+   "ml20m|popularity": 23.862045454545456,
+   "ml20m|inbatch": 23.842954545454546,
+   "ml20m|inbatch_logq": 7.90409090909091
+  },
+  "loss_mean_max": {
+   "uniform->sqrt_pop": [
+    0.3022077922077922,
+    1.2815909090909088,
+    0.0
+   ],
+   "uniform->popularity": [
+    8.18974025974026,
+    18.978863636363638,
+    3.9515909090909105
+   ],
+   "sqrt_pop->uniform": [
+    6.206103896103897,
+    23.842954545454546,
+    0.0
+   ],
+   "sqrt_pop->popularity": [
+    6.043214285714286,
+    18.978863636363638,
+    0.018181818181817633
+   ],
+   "popularity->uniform": [
+    18.505551948051945,
+    26.395909090909086,
+    7.376590909090908
+   ],
+   "popularity->sqrt_pop": [
+    2.2199025974025974,
+    4.754318181818185,
+    0.005681818181818343
+   ]
+  },
+  "pick": {
+   "amazon_books|uniform": "inbatch_logq",
+   "amazon_books|sqrt_pop": "inbatch_logq",
+   "amazon_books|popularity": "inbatch",
+   "hotelrec|uniform": "inbatch_logq",
+   "hotelrec|sqrt_pop": "inbatch_logq",
+   "hotelrec|popularity": "inbatch",
+   "yelp|uniform": "inbatch_logq",
+   "yelp|sqrt_pop": "inbatch_logq",
+   "yelp|popularity": "inbatch",
+   "google_connecticut|uniform": "inbatch_logq",
+   "google_connecticut|sqrt_pop": "inbatch_logq",
+   "google_connecticut|popularity": "inbatch",
+   "goodreads_all|uniform": "uniform",
+   "goodreads_all|sqrt_pop": "uniform",
+   "goodreads_all|popularity": "inbatch",
+   "netflix|uniform": "inbatch_logq",
+   "netflix|sqrt_pop": "inbatch",
+   "netflix|popularity": "popularity",
+   "ml20m|uniform": "inbatch_logq",
+   "ml20m|sqrt_pop": "inbatch",
+   "ml20m|popularity": "popularity"
+  },
+  "maximin_pick": {
+   "amazon_books": "inbatch",
+   "hotelrec": "inbatch",
+   "yelp": "inbatch",
+   "google_connecticut": "inbatch",
+   "goodreads_all": "inbatch",
+   "netflix": "inbatch",
+   "ml20m": "inbatch"
+  },
+  "equal_weight_pick": {
+   "amazon_books": "inbatch_logq",
+   "hotelrec": "inbatch_logq",
+   "yelp": "inbatch_logq",
+   "google_connecticut": "inbatch_logq",
+   "goodreads_all": "uniform",
+   "netflix": "inbatch_logq",
+   "ml20m": "inbatch_logq"
+  },
+  "equal_weight_margin": {
+   "amazon_books": 1.2243939393939414,
+   "hotelrec": 4.692954545454544,
+   "yelp": 5.407878787878786,
+   "google_connecticut": 5.609924242424235,
+   "goodreads_all": 2.4389393939393926,
+   "netflix": 3.708030303030304,
+   "ml20m": 5.042500000000002
+  },
+  "breakeven_weight_popularity": {
+   "amazon_books": 0.57577,
+   "hotelrec": 0.78365,
+   "yelp": 0.71702,
+   "google_connecticut": 0.74831,
+   "goodreads_all": 0.57372,
+   "netflix": 0.73241,
+   "ml20m": 0.75359
+  },
+  "min_drop_uniform_to_popularity": 3.4781818181818203,
+  "minimax_set_without": {
+   "uniform": {
+    "amazon_books": [
+     "popularity",
+     "inbatch"
+    ],
+    "hotelrec": [
+     "uniform",
+     "popularity",
+     "inbatch",
+     "inbatch_logq"
+    ],
+    "yelp": [
+     "popularity",
+     "inbatch"
+    ],
+    "google_connecticut": [
+     "uniform",
+     "popularity",
+     "inbatch",
+     "inbatch_logq"
+    ],
+    "goodreads_all": [
+     "popularity",
+     "inbatch"
+    ],
+    "netflix": [
+     "popularity",
+     "inbatch"
+    ],
+    "ml20m": [
+     "popularity",
+     "inbatch"
+    ]
+   },
+   "sqrt_pop": {
+    "amazon_books": [
+     "uniform",
+     "popularity",
+     "inbatch",
+     "inbatch_logq"
+    ],
+    "hotelrec": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "yelp": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "google_connecticut": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "goodreads_all": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "netflix": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "ml20m": [
+     "uniform",
+     "inbatch_logq"
+    ]
+   },
+   "popularity": {
+    "amazon_books": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "hotelrec": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "yelp": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "google_connecticut": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "goodreads_all": [
+     "uniform"
+    ],
+    "netflix": [
+     "uniform",
+     "inbatch_logq"
+    ],
+    "ml20m": [
+     "uniform",
+     "inbatch_logq"
+    ]
+   }
+  }
+ }
+}

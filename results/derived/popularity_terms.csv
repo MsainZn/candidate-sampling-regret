@@ -1,0 +1,8 @@
+dataset,surrogate,Lambda_R,adjusted_main,adjusted_larger
+amazon_books,10.7,15.9,23.5,29.4
+hotelrec,12.5,14.5,15.2,19.1
+yelp,11.5,14.5,28.2,30.6
+google_connecticut,13.1,14.3,22.0,24.1
+goodreads_all,35.2,37.1,25.4,27.5
+netflix,24.7,24.9,10.7,10.5
+ml20m,25.9,26.0,12.7,12.4

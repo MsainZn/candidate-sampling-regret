@@ -1,0 +1,402 @@
+runall.py  dataset=yelp  device=mps  torch 2.14.0
+  stages=['e0', 'e1', 'e2', 'e3', 'e3b', 'e4', 'e7']  splits=random  seeds e1=4 e4=2
+  dim=64 tau=0.1 K=1024 epochs=6 cert_K=1024 cert_n=110000 calib_n=30000
+
+loading ...
+  ESTIMAND: a held-out pair is kept only if BOTH its user and its item appear in
+    the training universe, so the target is logged membership AMONG USERS AND ITEMS
+    OBSERVED IN TRAINING (warm-start), not over the full catalogue. p and D are
+    computed inside that universe.
+  4,684,545 rows after filtering -> 4,558,128 distinct (user,item) pairs  (126,417 duplicates collapsed, policy=first)
+  full log universe: users 1,464,850  items 147,491  pairs 4,558,128  (3.1 pairs/user, 30.9 pairs/item)
+
+  E0 identified-estimand diagnostics
+    users                    1,464,850
+    items                    147,491
+    interactions             4,558,128
+    p                        2.10973e-05
+    H_b_p                    0.000248239
+    D                        10.7664
+    Lambda_V                 1.17974
+    Lambda_U                 0.929008
+    I_plus_UV                8.65762
+    frac_Lambda_V            0.109576
+    frac_Lambda_U            0.086288
+    frac_I_plus              0.804136
+    K_for_all_Hb             128,843
+    K_for_nonvacuous         3.25352
+    KL_macro_micro           0.588734
+    decomposition_residual   0
+    pairs_per_user           3.11167
+    pairs_per_item           30.9044
+    CAVEAT on frac_I_plus: for P_+ uniform over the L distinct pairs,
+      I_+(U;V) = H(U) + H(V) - log L, and H(U) = 13.2683 nats here.
+      With 3.1 pairs per user, knowing the user nearly determines the item, so
+      a large frac_I_plus reflects SPARSITY (the N/L ratio), not richer preference
+      structure. Do NOT compare frac_I_plus across datasets without reporting
+      pairs_per_user beside it.
+  wrote results_final_yelp/yelp/e0_diagnostics.csv  (18 rows)
+      5-core on TRAIN ROWS ONLY: 4,102,315 -> 2,079,009 train pairs (held-out rows never consulted)
+      CONTAINMENT [random]  (train universe must be a subset of the full log)
+        USERS : full log    1,464,850   train universe      153,291   retention  10.5%   subset? YES
+        ITEMS : full log      147,491   train universe       70,648   retention  47.9%   subset? YES
+        TEST  : held-out pairs      455,813   kept after the warm-start filter    206,862   retention  45.4%
+
+  === E1 [random]  train 2,079,009 test 206,862 users(N)=153,291 items(M)=70,648  p=1.9101e-05 D=10.8658 drift=0.1991 hw=0.1103
+    [yelp_random_e1_uniform_s0_d64_e6] training
+      epoch 1/6 loss=7.6423 (17s)
+      epoch 2/6 loss=5.3879 (17s)
+      epoch 3/6 loss=3.7107 (17s)
+      epoch 4/6 loss=3.1715 (17s)
+      epoch 5/6 loss=2.9339 (17s)
+      epoch 6/6 loss=2.7968 (17s)
+    [random/uniform/s0] L_hat=2.9620 LCB=2.8518 adj=1.8498 NDCG@20=0.3695
+    [yelp_random_e1_uniform_s1_d64_e6] training
+      epoch 1/6 loss=7.6298 (17s)
+      epoch 2/6 loss=5.3502 (17s)
+      epoch 3/6 loss=3.7107 (17s)
+      epoch 4/6 loss=3.1707 (17s)
+      epoch 5/6 loss=2.9320 (17s)
+      epoch 6/6 loss=2.7963 (17s)
+    [random/uniform/s1] L_hat=2.9584 LCB=2.8482 adj=1.8462 NDCG@20=0.3691
+    [yelp_random_e1_uniform_s2_d64_e6] training
+      epoch 1/6 loss=7.6408 (17s)
+      epoch 2/6 loss=5.3843 (17s)
+      epoch 3/6 loss=3.7163 (17s)
+      epoch 4/6 loss=3.1756 (17s)
+      epoch 5/6 loss=2.9366 (17s)
+      epoch 6/6 loss=2.7949 (17s)
+    [random/uniform/s2] L_hat=2.9563 LCB=2.8460 adj=1.8440 NDCG@20=0.3681
+    [yelp_random_e1_uniform_s3_d64_e6] training
+      epoch 1/6 loss=7.6453 (17s)
+      epoch 2/6 loss=5.3970 (17s)
+      epoch 3/6 loss=3.7125 (17s)
+      epoch 4/6 loss=3.1675 (17s)
+      epoch 5/6 loss=2.9320 (17s)
+      epoch 6/6 loss=2.7952 (17s)
+    [random/uniform/s3] L_hat=2.9630 LCB=2.8527 adj=1.8507 NDCG@20=0.3701
+    [yelp_random_e1_popularity_s0_d64_e6] training
+      epoch 1/6 loss=7.6560 (17s)
+      epoch 2/6 loss=5.7649 (17s)
+      epoch 3/6 loss=4.3255 (17s)
+      epoch 4/6 loss=3.7569 (17s)
+      epoch 5/6 loss=3.4936 (17s)
+      epoch 6/6 loss=3.3466 (17s)
+    [random/popularity/s0] L_hat=2.3123 LCB=2.2020 adj=1.2000 NDCG@20=0.2412
+    [yelp_random_e1_popularity_s1_d64_e6] training
+      epoch 1/6 loss=7.6532 (17s)
+      epoch 2/6 loss=5.7647 (17s)
+      epoch 3/6 loss=4.3264 (17s)
+      epoch 4/6 loss=3.7558 (17s)
+      epoch 5/6 loss=3.4936 (17s)
+      epoch 6/6 loss=3.3458 (17s)
+    [random/popularity/s1] L_hat=2.3103 LCB=2.2001 adj=1.1981 NDCG@20=0.2411
+    [yelp_random_e1_popularity_s2_d64_e6] training
+      epoch 1/6 loss=7.6569 (17s)
+      epoch 2/6 loss=5.7663 (17s)
+      epoch 3/6 loss=4.3310 (17s)
+      epoch 4/6 loss=3.7614 (17s)
+      epoch 5/6 loss=3.4966 (17s)
+      epoch 6/6 loss=3.3475 (17s)
+    [random/popularity/s2] L_hat=2.3085 LCB=2.1983 adj=1.1963 NDCG@20=0.2403
+    [yelp_random_e1_popularity_s3_d64_e6] training
+      epoch 1/6 loss=7.6622 (17s)
+      epoch 2/6 loss=5.7865 (17s)
+      epoch 3/6 loss=4.3305 (17s)
+      epoch 4/6 loss=3.7557 (17s)
+      epoch 5/6 loss=3.4924 (17s)
+      epoch 6/6 loss=3.3447 (17s)
+    [random/popularity/s3] L_hat=2.3086 LCB=2.1983 adj=1.1963 NDCG@20=0.2409
+    [yelp_random_e1_inbatch_s0_d64_e6] training
+      epoch 1/6 loss=7.6560 (23s)
+      epoch 2/6 loss=5.7586 (23s)
+      epoch 3/6 loss=4.3070 (23s)
+      epoch 4/6 loss=3.7360 (23s)
+      epoch 5/6 loss=3.4755 (23s)
+      epoch 6/6 loss=3.3301 (23s)
+    [random/inbatch/s0] L_hat=2.3212 LCB=2.2110 adj=1.2090 NDCG@20=0.2420
+    [yelp_random_e1_inbatch_s1_d64_e6] training
+      epoch 1/6 loss=7.6531 (23s)
+      epoch 2/6 loss=5.7581 (23s)
+      epoch 3/6 loss=4.3076 (23s)
+      epoch 4/6 loss=3.7363 (23s)
+      epoch 5/6 loss=3.4758 (23s)
+      epoch 6/6 loss=3.3304 (23s)
+    [random/inbatch/s1] L_hat=2.3172 LCB=2.2069 adj=1.2049 NDCG@20=0.2409
+    [yelp_random_e1_inbatch_s2_d64_e6] training
+      epoch 1/6 loss=7.6570 (23s)
+      epoch 2/6 loss=5.7601 (23s)
+      epoch 3/6 loss=4.3123 (23s)
+      epoch 4/6 loss=3.7414 (23s)
+      epoch 5/6 loss=3.4779 (23s)
+      epoch 6/6 loss=3.3306 (23s)
+    [random/inbatch/s2] L_hat=2.3177 LCB=2.2074 adj=1.2055 NDCG@20=0.2410
+    [yelp_random_e1_inbatch_s3_d64_e6] training
+      epoch 1/6 loss=7.6620 (23s)
+      epoch 2/6 loss=5.7793 (23s)
+      epoch 3/6 loss=4.3110 (23s)
+      epoch 4/6 loss=3.7353 (23s)
+      epoch 5/6 loss=3.4735 (23s)
+      epoch 6/6 loss=3.3283 (23s)
+    [random/inbatch/s3] L_hat=2.3178 LCB=2.2075 adj=1.2056 NDCG@20=0.2412
+    [yelp_random_e1_inbatch_logq_s0_d64_e6] training
+      epoch 1/6 loss=8.4290 (25s)
+      epoch 2/6 loss=6.2379 (25s)
+      epoch 3/6 loss=4.4845 (25s)
+      epoch 4/6 loss=3.9249 (25s)
+      epoch 5/6 loss=3.6814 (25s)
+      epoch 6/6 loss=3.5427 (25s)
+    [random/inbatch_logq/s0] L_hat=2.9807 LCB=2.8704 adj=1.8685 NDCG@20=0.3743
+    [yelp_random_e1_inbatch_logq_s1_d64_e6] training
+      epoch 1/6 loss=8.4255 (25s)
+      epoch 2/6 loss=6.2201 (25s)
+      epoch 3/6 loss=4.4821 (25s)
+      epoch 4/6 loss=3.9223 (24s)
+      epoch 5/6 loss=3.6799 (25s)
+      epoch 6/6 loss=3.5400 (25s)
+    [random/inbatch_logq/s1] L_hat=2.9771 LCB=2.8668 adj=1.8649 NDCG@20=0.3743
+    [yelp_random_e1_inbatch_logq_s2_d64_e6] training
+      epoch 1/6 loss=8.4304 (25s)
+      epoch 2/6 loss=6.2402 (25s)
+      epoch 3/6 loss=4.4902 (25s)
+      epoch 4/6 loss=3.9335 (25s)
+      epoch 5/6 loss=3.6864 (25s)
+      epoch 6/6 loss=3.5422 (25s)
+    [random/inbatch_logq/s2] L_hat=2.9758 LCB=2.8655 adj=1.8636 NDCG@20=0.3738
+    [yelp_random_e1_inbatch_logq_s3_d64_e6] training
+      epoch 1/6 loss=8.4352 (25s)
+      epoch 2/6 loss=6.2616 (25s)
+      epoch 3/6 loss=4.4866 (25s)
+      epoch 4/6 loss=3.9230 (25s)
+      epoch 5/6 loss=3.6787 (25s)
+      epoch 6/6 loss=3.5392 (26s)
+    [random/inbatch_logq/s3] L_hat=2.9802 LCB=2.8699 adj=1.8680 NDCG@20=0.3751
+  wrote results_final_yelp/yelp/e1_arms.csv  (16 rows)
+  wrote results_final_yelp/yelp/e2_crosscert.csv  (51 rows)
+  NOTE e3 is a diagnostic: zbar comes from the scored users, so it gives no lower bound.
+  wrote results_final_yelp/yelp/e3_itemonly.csv  (8 rows)
+      5-core on TRAIN ROWS ONLY: 4,102,315 -> 2,079,009 train pairs (held-out rows never consulted)
+      CONTAINMENT [random]  (train universe must be a subset of the full log)
+        USERS : full log    1,464,850   train universe      153,291   retention  10.5%   subset? YES
+        ITEMS : full log      147,491   train universe       70,648   retention  47.9%   subset? YES
+        TEST  : held-out pairs      455,813   kept after the warm-start filter    206,862   retention  45.4%
+
+  === E3b CAPACITY CONTROL [random]  dim=128 epochs=12 item_bias=5 -> G=15.0  hw=0.1512
+    [yelp_random_e3b_uniform_s0_d128_e12_b5] training
+      epoch 1/12 loss=6.9271 (30s)
+      epoch 2/12 loss=4.7561 (30s)
+      epoch 3/12 loss=3.3867 (30s)
+      epoch 4/12 loss=2.8750 (30s)
+      epoch 5/12 loss=2.6398 (30s)
+      epoch 6/12 loss=2.5035 (30s)
+      epoch 7/12 loss=2.4188 (30s)
+      epoch 8/12 loss=2.3645 (30s)
+      epoch 9/12 loss=2.3229 (30s)
+      epoch 10/12 loss=2.2855 (30s)
+      epoch 11/12 loss=2.2560 (30s)
+      epoch 12/12 loss=2.2369 (30s)
+    [random/uniform/R=uniform] L=3.1207 LCB=2.9695 | point -hon=+2.3215 -orc=+2.1216 | conservative -hon=+2.1646 -orc=+1.9652
+    [random/uniform/R=sqrt_pop] L=2.4023 LCB=2.2510 | point -hon=+2.1827 -orc=+1.9825 | conservative -hon=+2.0286 -orc=+1.8286
+    [random/uniform/R=popularity] L=1.6745 LCB=1.5233 | point -hon=+1.6745 -orc=+1.4745 | conservative -hon=+1.5233 -orc=+1.3212
+    [yelp_random_e3b_popularity_s0_d128_e12_b5] training
+      epoch 1/12 loss=7.2929 (31s)
+      epoch 2/12 loss=5.4620 (30s)
+      epoch 3/12 loss=4.1104 (30s)
+      epoch 4/12 loss=3.5801 (30s)
+      epoch 5/12 loss=3.3365 (31s)
+      epoch 6/12 loss=3.2004 (31s)
+      epoch 7/12 loss=3.1146 (31s)
+      epoch 8/12 loss=3.0544 (31s)
+      epoch 9/12 loss=3.0100 (31s)
+      epoch 10/12 loss=2.9760 (31s)
+      epoch 11/12 loss=2.9474 (31s)
+      epoch 12/12 loss=2.9248 (31s)
+    [random/popularity/R=uniform] L=2.3895 LCB=2.2383 | point -hon=+1.5904 -orc=+1.3904 | conservative -hon=+1.4334 -orc=+1.2340
+    [random/popularity/R=sqrt_pop] L=2.3643 LCB=2.2131 | point -hon=+2.1447 -orc=+1.9445 | conservative -hon=+1.9906 -orc=+1.7906
+    [random/popularity/R=popularity] L=2.3417 LCB=2.1905 | point -hon=+2.3417 -orc=+2.1416 | conservative -hon=+2.1905 -orc=+1.9884
+    [yelp_random_e3b_inbatch_logq_s0_d128_e12_b5] training
+      epoch 1/12 loss=7.6959 (40s)
+      epoch 2/12 loss=5.5178 (40s)
+      epoch 3/12 loss=4.0881 (40s)
+      epoch 4/12 loss=3.5636 (40s)
+      epoch 5/12 loss=3.3255 (40s)
+      epoch 6/12 loss=3.1894 (40s)
+      epoch 7/12 loss=3.1021 (40s)
+      epoch 8/12 loss=3.0408 (40s)
+      epoch 9/12 loss=2.9959 (40s)
+      epoch 10/12 loss=2.9611 (40s)
+      epoch 11/12 loss=2.9320 (40s)
+      epoch 12/12 loss=2.9086 (40s)
+    [random/inbatch_logq/R=uniform] L=3.1384 LCB=2.9871 | point -hon=+2.3392 -orc=+2.1392 | conservative -hon=+2.1822 -orc=+1.9828
+    [random/inbatch_logq/R=sqrt_pop] L=2.3869 LCB=2.2357 | point -hon=+2.1673 -orc=+1.9672 | conservative -hon=+2.0132 -orc=+1.8133
+    [random/inbatch_logq/R=popularity] L=1.6233 LCB=1.4721 | point -hon=+1.6233 -orc=+1.4232 | conservative -hon=+1.4721 -orc=+1.2700
+
+  E3b VERDICT   PER SPLIT (half-width 0.1512; verdicts use the CONSERVATIVE
+    column L_lcb - baseline - baseline_MC95, so the model's Hoeffding interval AND
+    the baseline's Monte-Carlo error are both already inside the number)
+    --- random
+      vs HONEST baseline: point +2.3417   conservative +2.1905  -> model carries real personalised signal
+      vs ORACLE floor   : point +2.1416   conservative +1.9884  -> clears the floor; the adjusted certificate is NON-EMPTY on this split
+  wrote results_final_yelp/yelp/e3b_capacity.csv  (9 rows)
+      5-core on TRAIN ROWS ONLY: 4,102,315 -> 2,079,009 train pairs (held-out rows never consulted)
+      CONTAINMENT [random]  (train universe must be a subset of the full log)
+        USERS : full log    1,464,850   train universe      153,291   retention  10.5%   subset? YES
+        ITEMS : full log      147,491   train universe       70,648   retention  47.9%   subset? YES
+        TEST  : held-out pairs      455,813   kept after the warm-start filter    206,862   retention  45.4%
+
+  === E4 [random]  calib 30,000 cert 110,000 (disjoint) hw=0.1103 drift=0.1991  range(log P_+)=5.63
+    [yelp_random_e4_a0_s0_d64_e6] training
+      epoch 1/6 loss=7.6424 (18s)
+      epoch 2/6 loss=5.3871 (17s)
+      epoch 3/6 loss=3.7083 (17s)
+      epoch 4/6 loss=3.1728 (17s)
+      epoch 5/6 loss=2.9309 (17s)
+      epoch 6/6 loss=2.7968 (17s)
+    [random/a0/s0] L=2.9512 LCB=2.8409 adj_hon=2.1521 adj_orc=1.8390
+    [yelp_random_e4_a0_s1_d64_e6] training
+      epoch 1/6 loss=7.6305 (17s)
+      epoch 2/6 loss=5.3548 (17s)
+      epoch 3/6 loss=3.7114 (17s)
+      epoch 4/6 loss=3.1739 (17s)
+      epoch 5/6 loss=2.9360 (17s)
+      epoch 6/6 loss=2.7946 (18s)
+    [random/a0/s1] L=2.9511 LCB=2.8408 adj_hon=2.1519 adj_orc=1.8388
+    [yelp_random_e4_a0.25_s0_d64_e6] training
+      epoch 1/6 loss=7.6504 (17s)
+      epoch 2/6 loss=5.5537 (17s)
+      epoch 3/6 loss=3.9457 (17s)
+      epoch 4/6 loss=3.3993 (17s)
+      epoch 5/6 loss=3.1514 (17s)
+      epoch 6/6 loss=3.0137 (17s)
+    [random/a0.25/s0] L=2.6577 LCB=2.5475 adj_hon=2.1861 adj_orc=1.8748
+    [yelp_random_e4_a0.25_s1_d64_e6] training
+      epoch 1/6 loss=7.6447 (18s)
+      epoch 2/6 loss=5.5406 (18s)
+      epoch 3/6 loss=3.9432 (18s)
+      epoch 4/6 loss=3.3955 (17s)
+      epoch 5/6 loss=3.1511 (18s)
+      epoch 6/6 loss=3.0143 (18s)
+    [random/a0.25/s1] L=2.6556 LCB=2.5453 adj_hon=2.1840 adj_orc=1.8727
+    [yelp_random_e4_a0.5_s0_d64_e6] training
+      epoch 1/6 loss=7.6551 (18s)
+      epoch 2/6 loss=5.6560 (18s)
+      epoch 3/6 loss=4.1282 (18s)
+      epoch 4/6 loss=3.5795 (17s)
+      epoch 5/6 loss=3.3284 (18s)
+      epoch 6/6 loss=3.1845 (17s)
+    [random/a0.5/s0] L=2.4149 LCB=2.3046 adj_hon=2.1953 adj_orc=1.8849
+    [yelp_random_e4_a0.5_s1_d64_e6] training
+      epoch 1/6 loss=7.6501 (17s)
+      epoch 2/6 loss=5.6483 (17s)
+      epoch 3/6 loss=4.1278 (17s)
+      epoch 4/6 loss=3.5787 (18s)
+      epoch 5/6 loss=3.3262 (18s)
+      epoch 6/6 loss=3.1842 (18s)
+    [random/a0.5/s1] L=2.4132 LCB=2.3029 adj_hon=2.1936 adj_orc=1.8832
+    [yelp_random_e4_a0.75_s0_d64_e6] training
+      epoch 1/6 loss=7.6564 (17s)
+      epoch 2/6 loss=5.7212 (17s)
+      epoch 3/6 loss=4.2538 (17s)
+      epoch 4/6 loss=3.6994 (17s)
+      epoch 5/6 loss=3.4432 (17s)
+      epoch 6/6 loss=3.2976 (17s)
+    [random/a0.75/s0] L=2.2486 LCB=2.1383 adj_hon=2.1901 adj_orc=1.8803
+    [yelp_random_e4_a0.75_s1_d64_e6] training
+      epoch 1/6 loss=7.6528 (18s)
+      epoch 2/6 loss=5.7185 (17s)
+      epoch 3/6 loss=4.2537 (17s)
+      epoch 4/6 loss=3.6990 (17s)
+      epoch 5/6 loss=3.4424 (17s)
+      epoch 6/6 loss=3.2969 (17s)
+    [random/a0.75/s1] L=2.2484 LCB=2.1381 adj_hon=2.1899 adj_orc=1.8801
+    [yelp_random_e4_a1_s0_d64_e6] training
+      epoch 1/6 loss=7.6560 (17s)
+      epoch 2/6 loss=5.7649 (17s)
+      epoch 3/6 loss=4.3255 (17s)
+      epoch 4/6 loss=3.7569 (17s)
+      epoch 5/6 loss=3.4936 (17s)
+      epoch 6/6 loss=3.3466 (17s)
+    [random/a1/s0] L=2.1819 LCB=2.0717 adj_hon=2.1819 adj_orc=1.8726
+    [yelp_random_e4_a1_s1_d64_e6] training
+      epoch 1/6 loss=7.6532 (17s)
+      epoch 2/6 loss=5.7647 (17s)
+      epoch 3/6 loss=4.3264 (17s)
+      epoch 4/6 loss=3.7558 (17s)
+      epoch 5/6 loss=3.4936 (17s)
+      epoch 6/6 loss=3.3458 (17s)
+    [random/a1/s1] L=2.1817 LCB=2.0714 adj_hon=2.1817 adj_orc=1.8723
+    [yelp_random_e4_a1.25_s0_d64_e6] training
+      epoch 1/6 loss=7.6513 (17s)
+      epoch 2/6 loss=5.7674 (17s)
+      epoch 3/6 loss=4.3261 (17s)
+      epoch 4/6 loss=3.7458 (17s)
+      epoch 5/6 loss=3.4800 (17s)
+      epoch 6/6 loss=3.3320 (17s)
+    [random/a1.25/s0] L=2.2239 LCB=2.1136 adj_hon=2.1744 adj_orc=1.8654
+    [yelp_random_e4_a1.25_s1_d64_e6] training
+      epoch 1/6 loss=7.6486 (17s)
+      epoch 2/6 loss=5.7701 (17s)
+      epoch 3/6 loss=4.3261 (17s)
+      epoch 4/6 loss=3.7437 (17s)
+      epoch 5/6 loss=3.4799 (17s)
+      epoch 6/6 loss=3.3321 (17s)
+    [random/a1.25/s1] L=2.2209 LCB=2.1106 adj_hon=2.1714 adj_orc=1.8624
+  wrote results_final_yelp/yelp/e4_invariance.csv  (12 rows)
+  wrote results_final_yelp/yelp/e7_zbar.csv  (36 rows)
+  wrote results_final_yelp/yelp/metrics_long.csv  (782 rows)
+
+====================================================================================================
+PASTE-ME SUMMARY   dataset=yelp
+====================================================================================================
+
+[E1] four training laws, certified under UNIFORM negatives
+  split     law                         L_hat   adjusted   NDCG@20  seeds
+  random    inbatch            2.3185 +/-0.0019     1.2062    0.2413      4
+  random    inbatch_logq       2.9785 +/-0.0024     1.8662    0.3744      4
+  random    popularity         2.3099 +/-0.0018     1.1977    0.2409      4
+  random    uniform            2.9599 +/-0.0031     1.8477    0.3692      4
+  [random] PAIRED Delta(uniform - popularity) over 4 seeds: +0.6500 +/- 0.0031 (SD), SE 0.0015   per seed: [0.6498 0.6481 0.6477 0.6544]
+  [random] PAIRED in-batch deficit ratio over 4 seeds: 1.28x +/- 0.00
+  [random] PAIRED logQ recovery over 4 seeds: 102.9% +/- 0.2%
+
+[E2] cross-certification, L_hat (rows = training law, cols = reference)
+  --- random
+    law                   uniform      sqrt_pop    popularity
+    uniform                2.9599        2.3912        1.8442
+    popularity             2.3099        2.2458        2.1876
+    inbatch                2.3185        2.2566        2.2007
+    inbatch_logq           2.9785        2.4152        1.8603
+    [Lambda_R]             1.0019        0.4197        0.1991
+    [oracle]               0.9992        0.4198        0.2001
+    [honest]               0.7992        0.2196        0.0000
+    PAIRED diagonal dominance under R=popularity over 4 seeds: +0.3434 +/- 0.0034 (SD)   per seed: [0.3432 0.3453 0.3464 0.3387]
+
+[E4] matched train+certify sweep over R_alpha ~ P_tr^alpha
+  --- random   drift=0.1991  hw=0.1103
+      alpha     L_hat   adj_honest  adj_oracle_LCB  identity_dev  seeds
+          0    2.9511       2.1520          1.8389       +0.0009      2
+       0.25    2.6567       2.1851          1.8738       +0.0010      2
+        0.5    2.4140       2.1944          1.8841       +0.0011      2
+       0.75    2.2485       2.1900          1.8802       +0.0009      2
+          1    2.1818       2.1818          1.8724       +0.0010      2
+       1.25    2.2224       2.1729          1.8639       +0.0009      2
+    adj_honest spread=0.0425 (hw=0.1103)   corr(alpha)=+0.316   oracle-adjusted nonzero: 6/6
+
+[E7] zbar variants -- AUDIT then calibrated residual (read calib_FIXED only)
+  --- random   target range(log P_+) = 5.63 nats
+    zbar            item_only_range  item_only_R2  spread(L)   min LCB   max LCB
+    cert_LEAKY                0.000         0.000     0.6148    2.0832    2.6980
+    train                     0.372         0.048     0.5921    2.0827    2.6748
+    calib_FIXED               0.075         0.011     0.6164    2.0832    2.6996
+    READ-OFF calib_FIXED: item-only 0.075 nats = 1.34% of the 5.63-nat target range -> SOUND
+      (1) PRE-REGISTERED alpha=1 (fixed by --preregister-alpha before the run), 95% LCB = 2.0832 nats = 19.17% of D   <- this one needs no multiplicity correction
+          [POST-HOC best alpha=0 gives 2.6996 -- selected after seeing the results, NOT quotable as a 95% bound]
+      (2) PER SEED, simultaneous over 6 refs (delta=0.05/6, hw 0.1344): s0=2.0593  s1=2.0588
+      (3) JOINT over all 12 (alpha,seed) cells (delta=0.05/12, hw 0.1427): min LCB = 2.0505 nats = 18.87% of D
+          (3) covers the 12 FIXED (alpha,seed) cells, conditional on the calibration procedure; it does not license any further data-dependent selection.
+      QUOTE (1) if the alpha was pre-registered, else (3). The uncorrected min of 6 per-seed-averaged 95% LCBs is 2.0832; averaging LCBs across seeds bounds only the seed-AVERAGE of L, and its joint coverage is 1-12*0.05 = 40%, so it is not a simultaneous bound at all.
+
+====================================================================================================
+
+done. everything under results_final_yelp/yelp/
+paste the PASTE-ME SUMMARY block; the CSVs are for plotting.

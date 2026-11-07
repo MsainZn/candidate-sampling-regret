@@ -1,0 +1,402 @@
+runall.py  dataset=goodreads_all  device=cuda  torch 2.14.0+cu130
+  stages=['e0', 'e1', 'e2', 'e3', 'e3b', 'e4', 'e7']  splits=random  seeds e1=4 e4=2
+  dim=64 tau=0.1 K=1024 epochs=6 cert_K=1024 cert_n=110000 calib_n=30000
+
+loading ...
+  ESTIMAND: a held-out pair is kept only if BOTH its user and its item appear in
+    the training universe, so the target is logged membership AMONG USERS AND ITEMS
+    OBSERVED IN TRAINING (warm-start), not over the full catalogue. p and D are
+    computed inside that universe.
+  56,090,396 rows after filtering -> 56,090,396 distinct (user,item) pairs  (0 duplicates collapsed, policy=first)
+  full log universe: users 787,075  items 1,141,599  pairs 56,090,396  (71.3 pairs/user, 49.1 pairs/item)
+
+  E0 identified-estimand diagnostics
+    users                    787,075
+    items                    1,141,599
+    interactions             56,090,396
+    p                        6.2425e-05
+    H_b_p                    0.000666794
+    D                        9.68154
+    Lambda_V                 2.993
+    Lambda_U                 0.861294
+    I_plus_UV                5.82725
+    frac_Lambda_V            0.309145
+    frac_Lambda_U            0.0889625
+    frac_I_plus              0.601893
+    K_for_all_Hb             43,543.4
+    K_for_nonvacuous         19.9454
+    KL_macro_micro           0.971158
+    decomposition_residual   0
+    pairs_per_user           71.2644
+    pairs_per_item           49.1332
+    CAVEAT on frac_I_plus: for P_+ uniform over the L distinct pairs,
+      I_+(U;V) = H(U) + H(V) - log L, and H(U) = 12.7148 nats here.
+      With 71.3 pairs per user, knowing the user nearly determines the item, so
+      a large frac_I_plus reflects SPARSITY (the N/L ratio), not richer preference
+      structure. Do NOT compare frac_I_plus across datasets without reporting
+      pairs_per_user beside it.
+  wrote results_final_goodreads_all\goodreads_all\e0_diagnostics.csv  (18 rows)
+      5-core on TRAIN ROWS ONLY: 50,481,356 -> 49,121,984 train pairs (held-out rows never consulted)
+      CONTAINMENT [random]  (train universe must be a subset of the full log)
+        USERS : full log      787,075   train universe      675,902   retention  85.9%   subset? YES
+        ITEMS : full log    1,141,599   train universe      589,988   retention  51.7%   subset? YES
+        TEST  : held-out pairs    5,609,040   kept after the warm-start filter  5,413,780   retention  96.5%
+
+  === E1 [random]  train 49,121,984 test 5,413,780 users(N)=675,902 items(M)=589,988  p=1.3576e-05 D=11.2072 drift=0.0644 hw=0.1103
+    [goodreads_all_random_e1_uniform_s0_d64_e6] training
+      epoch 1/6 loss=4.1432 (137s)
+      epoch 2/6 loss=2.8161 (154s)
+      epoch 3/6 loss=2.6383 (156s)
+      epoch 4/6 loss=2.5599 (157s)
+      epoch 5/6 loss=2.5096 (158s)
+      epoch 6/6 loss=2.4762 (158s)
+    [random/uniform/s0] L_hat=4.3317 LCB=4.2215 adj=1.6497 NDCG@20=0.6284
+    [goodreads_all_random_e1_uniform_s1_d64_e6] training
+      epoch 1/6 loss=4.1305 (148s)
+      epoch 2/6 loss=2.8173 (159s)
+      epoch 3/6 loss=2.6364 (161s)
+      epoch 4/6 loss=2.5564 (158s)
+      epoch 5/6 loss=2.5078 (159s)
+      epoch 6/6 loss=2.4743 (160s)
+    [random/uniform/s1] L_hat=4.3334 LCB=4.2231 adj=1.6514 NDCG@20=0.6297
+    [goodreads_all_random_e1_uniform_s2_d64_e6] training
+      epoch 1/6 loss=4.1380 (145s)
+      epoch 2/6 loss=2.8156 (154s)
+      epoch 3/6 loss=2.6397 (153s)
+      epoch 4/6 loss=2.5580 (154s)
+      epoch 5/6 loss=2.5096 (154s)
+      epoch 6/6 loss=2.4774 (154s)
+    [random/uniform/s2] L_hat=4.3291 LCB=4.2188 adj=1.6471 NDCG@20=0.6279
+    [goodreads_all_random_e1_uniform_s3_d64_e6] training
+      epoch 1/6 loss=4.1419 (145s)
+      epoch 2/6 loss=2.8143 (154s)
+      epoch 3/6 loss=2.6367 (154s)
+      epoch 4/6 loss=2.5566 (153s)
+      epoch 5/6 loss=2.5097 (154s)
+      epoch 6/6 loss=2.4765 (154s)
+    [random/uniform/s3] L_hat=4.3341 LCB=4.2238 adj=1.6521 NDCG@20=0.6295
+    [goodreads_all_random_e1_popularity_s0_d64_e6] training
+      epoch 1/6 loss=5.7954 (148s)
+      epoch 2/6 loss=4.6069 (155s)
+      epoch 3/6 loss=4.4259 (156s)
+      epoch 4/6 loss=4.3486 (154s)
+      epoch 5/6 loss=4.3036 (155s)
+      epoch 6/6 loss=4.2731 (154s)
+    [random/popularity/s0] L_hat=2.7588 LCB=2.6485 adj=0.0767 NDCG@20=0.4073
+    [goodreads_all_random_e1_popularity_s1_d64_e6] training
+      epoch 1/6 loss=5.7898 (147s)
+      epoch 2/6 loss=4.6050 (154s)
+      epoch 3/6 loss=4.4245 (153s)
+      epoch 4/6 loss=4.3476 (154s)
+      epoch 5/6 loss=4.3028 (154s)
+      epoch 6/6 loss=4.2726 (153s)
+    [random/popularity/s1] L_hat=2.7500 LCB=2.6397 adj=0.0679 NDCG@20=0.4059
+    [goodreads_all_random_e1_popularity_s2_d64_e6] training
+      epoch 1/6 loss=5.7887 (147s)
+      epoch 2/6 loss=4.6052 (154s)
+      epoch 3/6 loss=4.4255 (154s)
+      epoch 4/6 loss=4.3487 (155s)
+      epoch 5/6 loss=4.3040 (154s)
+      epoch 6/6 loss=4.2736 (155s)
+    [random/popularity/s2] L_hat=2.7508 LCB=2.6405 adj=0.0688 NDCG@20=0.4060
+    [goodreads_all_random_e1_popularity_s3_d64_e6] training
+      epoch 1/6 loss=5.7950 (146s)
+      epoch 2/6 loss=4.6053 (154s)
+      epoch 3/6 loss=4.4252 (154s)
+      epoch 4/6 loss=4.3485 (154s)
+      epoch 5/6 loss=4.3036 (155s)
+      epoch 6/6 loss=4.2735 (154s)
+    [random/popularity/s3] L_hat=2.7530 LCB=2.6428 adj=0.0710 NDCG@20=0.4057
+    [goodreads_all_random_e1_inbatch_s0_d64_e6] training
+      epoch 1/6 loss=5.7715 (525s)
+      epoch 2/6 loss=4.5862 (525s)
+      epoch 3/6 loss=4.4125 (526s)
+      epoch 4/6 loss=4.3381 (531s)
+      epoch 5/6 loss=4.2944 (527s)
+      epoch 6/6 loss=4.2648 (527s)
+    [random/inbatch/s0] L_hat=2.7419 LCB=2.6316 adj=0.0598 NDCG@20=0.3992
+    [goodreads_all_random_e1_inbatch_s1_d64_e6] training
+      epoch 1/6 loss=5.7656 (356s)
+      epoch 2/6 loss=4.5837 (376s)
+      epoch 3/6 loss=4.4107 (378s)
+      epoch 4/6 loss=4.3367 (377s)
+      epoch 5/6 loss=4.2934 (371s)
+      epoch 6/6 loss=4.2639 (373s)
+    [random/inbatch/s1] L_hat=2.7349 LCB=2.6247 adj=0.0529 NDCG@20=0.3989
+    [goodreads_all_random_e1_inbatch_s2_d64_e6] training
+      epoch 1/6 loss=5.7647 (360s)
+      epoch 2/6 loss=4.5843 (382s)
+      epoch 3/6 loss=4.4120 (377s)
+      epoch 4/6 loss=4.3381 (380s)
+      epoch 5/6 loss=4.2947 (379s)
+      epoch 6/6 loss=4.2651 (382s)
+    [random/inbatch/s2] L_hat=2.7369 LCB=2.6267 adj=0.0549 NDCG@20=0.3993
+    [goodreads_all_random_e1_inbatch_s3_d64_e6] training
+      epoch 1/6 loss=5.7709 (522s)
+      epoch 2/6 loss=4.5841 (379s)
+      epoch 3/6 loss=4.4115 (364s)
+      epoch 4/6 loss=4.3376 (367s)
+      epoch 5/6 loss=4.2942 (367s)
+      epoch 6/6 loss=4.2647 (367s)
+    [random/inbatch/s3] L_hat=2.7366 LCB=2.6263 adj=0.0546 NDCG@20=0.3985
+    [goodreads_all_random_e1_inbatch_logq_s0_d64_e6] training
+      epoch 1/6 loss=6.8295 (291s)
+      epoch 2/6 loss=5.6232 (296s)
+      epoch 3/6 loss=5.4370 (301s)
+      epoch 4/6 loss=5.3379 (362s)
+      epoch 5/6 loss=5.2720 (296s)
+      epoch 6/6 loss=5.2153 (335s)
+    [random/inbatch_logq/s0] L_hat=4.0072 LCB=3.8969 adj=1.3252 NDCG@20=0.6017
+    [goodreads_all_random_e1_inbatch_logq_s1_d64_e6] training
+      epoch 1/6 loss=6.8174 (356s)
+      epoch 2/6 loss=5.6097 (295s)
+      epoch 3/6 loss=5.4313 (363s)
+      epoch 4/6 loss=5.3497 (337s)
+      epoch 5/6 loss=5.2824 (377s)
+      epoch 6/6 loss=5.2428 (374s)
+    [random/inbatch_logq/s1] L_hat=3.9743 LCB=3.8640 adj=1.2922 NDCG@20=0.5988
+    [goodreads_all_random_e1_inbatch_logq_s2_d64_e6] training
+      epoch 1/6 loss=6.8264 (367s)
+      epoch 2/6 loss=5.6246 (368s)
+      epoch 3/6 loss=5.4455 (372s)
+      epoch 4/6 loss=5.3526 (372s)
+      epoch 5/6 loss=5.2790 (373s)
+      epoch 6/6 loss=5.2267 (375s)
+    [random/inbatch_logq/s2] L_hat=3.9963 LCB=3.8860 adj=1.3142 NDCG@20=0.6005
+    [goodreads_all_random_e1_inbatch_logq_s3_d64_e6] training
+      epoch 1/6 loss=6.8276 (372s)
+      epoch 2/6 loss=5.6193 (378s)
+      epoch 3/6 loss=5.4476 (378s)
+      epoch 4/6 loss=5.3722 (374s)
+      epoch 5/6 loss=5.2927 (372s)
+      epoch 6/6 loss=5.2421 (376s)
+    [random/inbatch_logq/s3] L_hat=3.9781 LCB=3.8678 adj=1.2961 NDCG@20=0.5985
+  wrote results_final_goodreads_all\goodreads_all\e1_arms.csv  (32 rows)
+  wrote results_final_goodreads_all\goodreads_all\e2_crosscert.csv  (102 rows)
+  NOTE e3 is a diagnostic: zbar comes from the scored users, so it gives no lower bound.
+  wrote results_final_goodreads_all\goodreads_all\e3_itemonly.csv  (16 rows)
+      5-core on TRAIN ROWS ONLY: 50,481,356 -> 49,121,984 train pairs (held-out rows never consulted)
+      CONTAINMENT [random]  (train universe must be a subset of the full log)
+        USERS : full log      787,075   train universe      675,902   retention  85.9%   subset? YES
+        ITEMS : full log    1,141,599   train universe      589,988   retention  51.7%   subset? YES
+        TEST  : held-out pairs    5,609,040   kept after the warm-start filter  5,413,780   retention  96.5%
+
+  === E3b CAPACITY CONTROL [random]  dim=128 epochs=12 item_bias=5 -> G=15.0  hw=0.1512
+    [goodreads_all_random_e3b_uniform_s0_d128_e12_b5] training
+      epoch 1/12 loss=3.6200 (285s)
+      epoch 2/12 loss=2.4893 (304s)
+      epoch 3/12 loss=2.3428 (308s)
+      epoch 4/12 loss=2.2884 (307s)
+      epoch 5/12 loss=2.2573 (309s)
+      epoch 6/12 loss=2.2398 (309s)
+      epoch 7/12 loss=2.2290 (310s)
+      epoch 8/12 loss=2.2222 (310s)
+      epoch 9/12 loss=2.2169 (309s)
+      epoch 10/12 loss=2.2132 (309s)
+      epoch 11/12 loss=2.2084 (310s)
+      epoch 12/12 loss=2.2035 (311s)
+    [random/uniform/R=uniform] L=4.4811 LCB=4.3299 | point -hon=+2.0409 -orc=+1.9770 | conservative -hon=+1.8790 -orc=+1.8155
+    [random/uniform/R=sqrt_pop] L=2.8040 LCB=2.6528 | point -hon=+2.0474 -orc=+1.9835 | conservative -hon=+1.8905 -orc=+1.8269
+    [random/uniform/R=popularity] L=1.2249 LCB=1.0737 | point -hon=+1.2249 -orc=+1.1610 | conservative -hon=+1.0737 -orc=+1.0085
+    [goodreads_all_random_e3b_popularity_s0_d128_e12_b5] training
+      epoch 1/12 loss=5.6926 (304s)
+      epoch 2/12 loss=4.5764 (314s)
+      epoch 3/12 loss=4.3868 (310s)
+      epoch 4/12 loss=4.2979 (308s)
+      epoch 5/12 loss=4.2433 (310s)
+      epoch 6/12 loss=4.2056 (303s)
+      epoch 7/12 loss=4.1778 (300s)
+      epoch 8/12 loss=4.1566 (297s)
+      epoch 9/12 loss=4.1399 (299s)
+      epoch 10/12 loss=4.1263 (297s)
+      epoch 11/12 loss=4.1150 (296s)
+      epoch 12/12 loss=4.1056 (296s)
+    [random/popularity/R=uniform] L=2.7188 LCB=2.5676 | point -hon=+0.2785 -orc=+0.2146 | conservative -hon=+0.1167 -orc=+0.0531
+    [random/popularity/R=sqrt_pop] L=2.5896 LCB=2.4384 | point -hon=+1.8330 -orc=+1.7691 | conservative -hon=+1.6762 -orc=+1.6125
+    [random/popularity/R=popularity] L=2.4432 LCB=2.2920 | point -hon=+2.4432 -orc=+2.3793 | conservative -hon=+2.2920 -orc=+2.2269
+    [goodreads_all_random_e3b_inbatch_logq_s0_d128_e12_b5] training
+      epoch 1/12 loss=5.8741 (416s)
+      epoch 2/12 loss=4.7695 (431s)
+      epoch 3/12 loss=4.6807 (419s)
+      epoch 4/12 loss=4.6780 (438s)
+      epoch 5/12 loss=4.6976 (483s)
+      epoch 6/12 loss=4.7267 (446s)
+      epoch 7/12 loss=4.7570 (467s)
+      epoch 8/12 loss=4.7868 (439s)
+      epoch 9/12 loss=4.8125 (465s)
+      epoch 10/12 loss=4.8363 (460s)
+      epoch 11/12 loss=4.8556 (505s)
+      epoch 12/12 loss=4.8714 (492s)
+    [random/inbatch_logq/R=uniform] L=4.2177 LCB=4.0664 | point -hon=+1.7774 -orc=+1.7135 | conservative -hon=+1.6155 -orc=+1.5520
+    [random/inbatch_logq/R=sqrt_pop] L=2.7814 LCB=2.6302 | point -hon=+2.0248 -orc=+1.9609 | conservative -hon=+1.8680 -orc=+1.8043
+    [random/inbatch_logq/R=popularity] L=1.2207 LCB=1.0694 | point -hon=+1.2207 -orc=+1.1568 | conservative -hon=+1.0694 -orc=+1.0043
+
+  E3b VERDICT   PER SPLIT (half-width 0.1512; verdicts use the CONSERVATIVE
+    column L_lcb - baseline - baseline_MC95, so the model's Hoeffding interval AND
+    the baseline's Monte-Carlo error are both already inside the number)
+    --- random
+      vs HONEST baseline: point +2.4432   conservative +2.2920  -> model carries real personalised signal
+      vs ORACLE floor   : point +2.3793   conservative +2.2269  -> clears the floor; the adjusted certificate is NON-EMPTY on this split
+  wrote results_final_goodreads_all\goodreads_all\e3b_capacity.csv  (18 rows)
+      5-core on TRAIN ROWS ONLY: 50,481,356 -> 49,121,984 train pairs (held-out rows never consulted)
+      CONTAINMENT [random]  (train universe must be a subset of the full log)
+        USERS : full log      787,075   train universe      675,902   retention  85.9%   subset? YES
+        ITEMS : full log    1,141,599   train universe      589,988   retention  51.7%   subset? YES
+        TEST  : held-out pairs    5,609,040   kept after the warm-start filter  5,413,780   retention  96.5%
+
+  === E4 [random]  calib 30,000 cert 110,000 (disjoint) hw=0.1103 drift=0.0644  range(log P_+)=10.10
+    [goodreads_all_random_e4_a0_s0_d64_e6] training
+      epoch 1/6 loss=4.1423 (141s)
+      epoch 2/6 loss=2.8186 (151s)
+      epoch 3/6 loss=2.6410 (148s)
+      epoch 4/6 loss=2.5591 (147s)
+      epoch 5/6 loss=2.5105 (149s)
+      epoch 6/6 loss=2.4813 (146s)
+    [random/a0/s0] L=4.3341 LCB=4.2238 adj_hon=1.8938 adj_orc=1.6521
+    [goodreads_all_random_e4_a0_s1_d64_e6] training
+      epoch 1/6 loss=4.1316 (137s)
+      epoch 2/6 loss=2.8176 (147s)
+      epoch 3/6 loss=2.6391 (147s)
+      epoch 4/6 loss=2.5568 (147s)
+      epoch 5/6 loss=2.5089 (147s)
+      epoch 6/6 loss=2.4756 (147s)
+    [random/a0/s1] L=4.3350 LCB=4.2247 adj_hon=1.8947 adj_orc=1.6529
+    [goodreads_all_random_e4_a0.25_s0_d64_e6] training
+      epoch 1/6 loss=4.6332 (138s)
+      epoch 2/6 loss=3.3550 (151s)
+      epoch 3/6 loss=3.1852 (153s)
+      epoch 4/6 loss=3.1093 (154s)
+      epoch 5/6 loss=3.0641 (154s)
+      epoch 6/6 loss=3.0327 (155s)
+    [random/a0.25/s0] L=3.7426 LCB=3.6324 adj_hon=2.1999 adj_orc=2.0080
+    [goodreads_all_random_e4_a0.25_s1_d64_e6] training
+      epoch 1/6 loss=4.6229 (141s)
+      epoch 2/6 loss=3.3532 (154s)
+      epoch 3/6 loss=3.1832 (156s)
+      epoch 4/6 loss=3.1093 (158s)
+      epoch 5/6 loss=3.0621 (159s)
+      epoch 6/6 loss=3.0317 (163s)
+    [random/a0.25/s1] L=3.7417 LCB=3.6314 adj_hon=2.1989 adj_orc=2.0071
+    [goodreads_all_random_e4_a0.5_s0_d64_e6] training
+      epoch 1/6 loss=5.1879 (142s)
+      epoch 2/6 loss=3.9656 (160s)
+      epoch 3/6 loss=3.7960 (163s)
+      epoch 4/6 loss=3.7218 (163s)
+      epoch 5/6 loss=3.6778 (159s)
+      epoch 6/6 loss=3.6466 (162s)
+    [random/a0.5/s0] L=3.0730 LCB=2.9627 adj_hon=2.3163 adj_orc=2.1353
+    [goodreads_all_random_e4_a0.5_s1_d64_e6] training
+      epoch 1/6 loss=5.1787 (144s)
+      epoch 2/6 loss=3.9620 (157s)
+      epoch 3/6 loss=3.7944 (165s)
+      epoch 4/6 loss=3.7196 (159s)
+      epoch 5/6 loss=3.6754 (158s)
+      epoch 6/6 loss=3.6460 (161s)
+    [random/a0.5/s1] L=3.0777 LCB=2.9674 adj_hon=2.3211 adj_orc=2.1400
+    [goodreads_all_random_e4_a0.75_s0_d64_e6] training
+      epoch 1/6 loss=5.6253 (143s)
+      epoch 2/6 loss=4.4299 (156s)
+      epoch 3/6 loss=4.2534 (157s)
+      epoch 4/6 loss=4.1772 (159s)
+      epoch 5/6 loss=4.1316 (162s)
+      epoch 6/6 loss=4.1006 (161s)
+    [random/a0.75/s0] L=2.5723 LCB=2.4620 adj_hon=2.3680 adj_orc=2.1907
+    [goodreads_all_random_e4_a0.75_s1_d64_e6] training
+      epoch 1/6 loss=5.6182 (146s)
+      epoch 2/6 loss=4.4277 (156s)
+      epoch 3/6 loss=4.2518 (156s)
+      epoch 4/6 loss=4.1751 (158s)
+      epoch 5/6 loss=4.1301 (157s)
+      epoch 6/6 loss=4.0997 (157s)
+    [random/a0.75/s1] L=2.5763 LCB=2.4660 adj_hon=2.3720 adj_orc=2.1947
+    [goodreads_all_random_e4_a1_s0_d64_e6] training
+      epoch 1/6 loss=5.7954 (145s)
+      epoch 2/6 loss=4.6069 (153s)
+      epoch 3/6 loss=4.4259 (157s)
+      epoch 4/6 loss=4.3486 (155s)
+      epoch 5/6 loss=4.3036 (160s)
+      epoch 6/6 loss=4.2731 (158s)
+    [random/a1/s0] L=2.3947 LCB=2.2845 adj_hon=2.3947 adj_orc=2.2200
+    [goodreads_all_random_e4_a1_s1_d64_e6] training
+      epoch 1/6 loss=5.7898 (147s)
+      epoch 2/6 loss=4.6050 (156s)
+      epoch 3/6 loss=4.4245 (159s)
+      epoch 4/6 loss=4.3476 (160s)
+      epoch 5/6 loss=4.3028 (160s)
+      epoch 6/6 loss=4.2726 (160s)
+    [random/a1/s1] L=2.3964 LCB=2.2861 adj_hon=2.3964 adj_orc=2.2216
+    [goodreads_all_random_e4_a1.25_s0_d64_e6] training
+      epoch 1/6 loss=5.6358 (144s)
+      epoch 2/6 loss=4.4503 (158s)
+      epoch 3/6 loss=4.2772 (157s)
+      epoch 4/6 loss=4.2058 (158s)
+      epoch 5/6 loss=4.1647 (158s)
+      epoch 6/6 loss=4.1366 (154s)
+    [random/a1.25/s0] L=2.5611 LCB=2.4508 adj_hon=2.3618 adj_orc=2.1892
+    [goodreads_all_random_e4_a1.25_s1_d64_e6] training
+      epoch 1/6 loss=5.6316 (142s)
+      epoch 2/6 loss=4.4480 (151s)
+      epoch 3/6 loss=4.2752 (151s)
+      epoch 4/6 loss=4.2044 (152s)
+      epoch 5/6 loss=4.1631 (152s)
+      epoch 6/6 loss=4.1359 (152s)
+    [random/a1.25/s1] L=2.5634 LCB=2.4531 adj_hon=2.3642 adj_orc=2.1916
+  wrote results_final_goodreads_all\goodreads_all\e4_invariance.csv  (24 rows)
+  wrote results_final_goodreads_all\goodreads_all\e7_zbar.csv  (72 rows)
+  wrote results_final_goodreads_all\goodreads_all\metrics_long.csv  (1546 rows)
+
+====================================================================================================
+PASTE-ME SUMMARY   dataset=goodreads_all
+====================================================================================================
+
+[E1] four training laws, certified under UNIFORM negatives
+  split     law                         L_hat   adjusted   NDCG@20  seeds
+  random    inbatch            2.7376 +/-0.0030     0.0555    0.3990      4
+  random    inbatch_logq       3.9890 +/-0.0155     1.3069    0.5999      4
+  random    popularity         2.7531 +/-0.0040     0.0711    0.4062      4
+  random    uniform            4.3321 +/-0.0022     1.6501    0.6289      4
+  [random] PAIRED Delta(uniform - popularity) over 4 seeds: +1.5789 +/- 0.0045 (SD), SE 0.0022   per seed: [1.573  1.5834 1.5783 1.5811]
+  [random] PAIRED in-batch deficit ratio over 4 seeds: 1.58x +/- 0.00
+  [random] PAIRED logQ recovery over 4 seeds: 78.5% +/- 1.0%
+
+[E2] cross-certification, L_hat (rows = training law, cols = reference)
+  --- random
+    law                   uniform      sqrt_pop    popularity
+    uniform                4.3321        2.7044        1.1828
+    popularity             2.7531        2.5796        2.3900
+    inbatch                2.7376        2.5771        2.4004
+    inbatch_logq           3.9890        2.6666        1.2144
+    [Lambda_R]             2.5718        0.8275        0.0644
+    [oracle]               2.5042        0.8206        0.0639
+    [honest]               2.4403        0.7566        0.0000
+    PAIRED diagonal dominance under R=popularity over 4 seeds: +1.2071 +/- 0.0041 (SD)   per seed: [1.2097 1.2116 1.2043 1.203 ]
+
+[E4] matched train+certify sweep over R_alpha ~ P_tr^alpha
+  --- random   drift=0.0644  hw=0.1103
+      alpha     L_hat   adj_honest  adj_oracle_LCB  identity_dev  seeds
+          0    4.3345       1.8943          1.6525       -0.0005      2
+       0.25    3.7422       2.1994          2.0076       -0.0005      2
+        0.5    3.0753       2.3187          2.1376       -0.0005      2
+       0.75    2.5743       2.3700          2.1927       -0.0005      2
+          1    2.3955       2.3955          2.2208       -0.0005      2
+       1.25    2.5623       2.3630          2.1904       -0.0007      2
+    adj_honest spread=0.5013 (hw=0.1103)   corr(alpha)=+0.836   oracle-adjusted nonzero: 6/6
+
+[E7] zbar variants -- AUDIT then calibrated residual (read calib_FIXED only)
+  --- random   target range(log P_+) = 10.10 nats
+    zbar            item_only_range  item_only_R2  spread(L)   min LCB   max LCB
+    cert_LEAKY                0.000         0.000     0.6048    2.3111    2.9159
+    train                     2.113         0.099     0.2495    2.2211    2.4706
+    calib_FIXED               0.080         0.003     0.6069    2.3118    2.9186
+    READ-OFF calib_FIXED: item-only 0.080 nats = 0.79% of the 10.10-nat target range -> SOUND
+      (1) PRE-REGISTERED alpha=1 (fixed by --preregister-alpha before the run), 95% LCB = 2.3118 nats = 20.63% of D   <- this one needs no multiplicity correction
+          [POST-HOC best alpha=0.25 gives 2.9186 -- selected after seeing the results, NOT quotable as a 95% bound]
+      (2) PER SEED, simultaneous over 6 refs (delta=0.05/6, hw 0.1344): s0=2.2867  s1=2.2885
+      (3) JOINT over all 12 (alpha,seed) cells (delta=0.05/12, hw 0.1427): min LCB = 2.2785 nats = 20.33% of D
+          (3) covers the 12 FIXED (alpha,seed) cells, conditional on the calibration procedure; it does not license any further data-dependent selection.
+      QUOTE (1) if the alpha was pre-registered, else (3). The uncorrected min of 6 per-seed-averaged 95% LCBs is 2.3118; averaging LCBs across seeds bounds only the seed-AVERAGE of L, and its joint coverage is 1-12*0.05 = 40%, so it is not a simultaneous bound at all.
+
+====================================================================================================
+
+done. everything under results_final_goodreads_all\goodreads_all/
+paste the PASTE-ME SUMMARY block; the CSVs are for plotting.

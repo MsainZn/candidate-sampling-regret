@@ -1,0 +1,402 @@
+runall.py  dataset=google_connecticut  device=mps  torch 2.14.0
+  stages=['e0', 'e1', 'e2', 'e3', 'e3b', 'e4', 'e7']  splits=random  seeds e1=4 e4=2
+  dim=64 tau=0.1 K=1024 epochs=6 cert_K=1024 cert_n=110000 calib_n=30000
+
+loading ...
+  ESTIMAND: a held-out pair is kept only if BOTH its user and its item appear in
+    the training universe, so the target is logged membership AMONG USERS AND ITEMS
+    OBSERVED IN TRAINING (warm-start), not over the full catalogue. p and D are
+    computed inside that universe.
+  4,260,602 rows after filtering -> 4,207,295 distinct (user,item) pairs  (53,307 duplicates collapsed, policy=first)
+  full log universe: users 1,246,484  items 48,432  pairs 4,207,295  (3.4 pairs/user, 86.9 pairs/item)
+
+  E0 identified-estimand diagnostics
+    users                    1,246,484
+    items                    48,432
+    interactions             4,207,295
+    p                        6.96921e-05
+    H_b_p                    0.000736743
+    D                        9.57142
+    Lambda_V                 1.07794
+    Lambda_U                 1.0219
+    I_plus_UV                7.47159
+    frac_Lambda_V            0.112621
+    frac_Lambda_U            0.106765
+    frac_I_plus              0.780614
+    K_for_all_Hb             39,002.8
+    K_for_nonvacuous         2.93862
+    KL_macro_micro           0.692703
+    decomposition_residual   1.77636e-15
+    pairs_per_user           3.37533
+    pairs_per_item           86.8701
+    CAVEAT on frac_I_plus: for P_+ uniform over the L distinct pairs,
+      I_+(U;V) = H(U) + H(V) - log L, and H(U) = 13.0139 nats here.
+      With 3.4 pairs per user, knowing the user nearly determines the item, so
+      a large frac_I_plus reflects SPARSITY (the N/L ratio), not richer preference
+      structure. Do NOT compare frac_I_plus across datasets without reporting
+      pairs_per_user beside it.
+  wrote results_final_google_connecticut/google_connecticut/e0_diagnostics.csv  (18 rows)
+      5-core on TRAIN ROWS ONLY: 3,786,565 -> 2,315,422 train pairs (held-out rows never consulted)
+      CONTAINMENT [random]  (train universe must be a subset of the full log)
+        USERS : full log    1,246,484   train universe      144,270   retention  11.6%   subset? YES
+        ITEMS : full log       48,432   train universe       33,716   retention  69.6%   subset? YES
+        TEST  : held-out pairs      420,730   kept after the warm-start filter    243,114   retention  57.8%
+
+  === E1 [random]  train 2,315,422 test 243,114 users(N)=144,270 items(M)=33,716  p=4.9980e-05 D=9.9039 drift=0.0822 hw=0.1103
+    [google_connecticut_random_e1_uniform_s0_d64_e6] training
+      epoch 1/6 loss=7.5064 (21s)
+      epoch 2/6 loss=5.0966 (21s)
+      epoch 3/6 loss=3.9843 (21s)
+      epoch 4/6 loss=3.6227 (21s)
+      epoch 5/6 loss=3.4518 (21s)
+      epoch 6/6 loss=3.3502 (21s)
+    [random/uniform/s0] L_hat=2.5238 LCB=2.4135 adj=1.4203 NDCG@20=0.3192
+    [google_connecticut_random_e1_uniform_s1_d64_e6] training
+      epoch 1/6 loss=7.5147 (21s)
+      epoch 2/6 loss=5.1008 (21s)
+      epoch 3/6 loss=3.9832 (21s)
+      epoch 4/6 loss=3.6237 (21s)
+      epoch 5/6 loss=3.4580 (21s)
+      epoch 6/6 loss=3.3515 (21s)
+    [random/uniform/s1] L_hat=2.5155 LCB=2.4052 adj=1.4120 NDCG@20=0.3172
+    [google_connecticut_random_e1_uniform_s2_d64_e6] training
+      epoch 1/6 loss=7.5163 (21s)
+      epoch 2/6 loss=5.1152 (21s)
+      epoch 3/6 loss=3.9920 (21s)
+      epoch 4/6 loss=3.6260 (21s)
+      epoch 5/6 loss=3.4510 (21s)
+      epoch 6/6 loss=3.3552 (21s)
+    [random/uniform/s2] L_hat=2.5205 LCB=2.4102 adj=1.4170 NDCG@20=0.3188
+    [google_connecticut_random_e1_uniform_s3_d64_e6] training
+      epoch 1/6 loss=7.5176 (21s)
+      epoch 2/6 loss=5.1200 (21s)
+      epoch 3/6 loss=3.9890 (21s)
+      epoch 4/6 loss=3.6255 (21s)
+      epoch 5/6 loss=3.4520 (21s)
+      epoch 6/6 loss=3.3549 (21s)
+    [random/uniform/s3] L_hat=2.5169 LCB=2.4066 adj=1.4134 NDCG@20=0.3187
+    [google_connecticut_random_e1_popularity_s0_d64_e6] training
+      epoch 1/6 loss=7.6260 (21s)
+      epoch 2/6 loss=5.8197 (21s)
+      epoch 3/6 loss=4.7374 (21s)
+      epoch 4/6 loss=4.3515 (21s)
+      epoch 5/6 loss=4.1641 (21s)
+      epoch 6/6 loss=4.0532 (21s)
+    [random/popularity/s0] L_hat=1.7333 LCB=1.6230 adj=0.6298 NDCG@20=0.1891
+    [google_connecticut_random_e1_popularity_s1_d64_e6] training
+      epoch 1/6 loss=7.6301 (21s)
+      epoch 2/6 loss=5.8179 (21s)
+      epoch 3/6 loss=4.7340 (21s)
+      epoch 4/6 loss=4.3515 (21s)
+      epoch 5/6 loss=4.1654 (21s)
+      epoch 6/6 loss=4.0549 (21s)
+    [random/popularity/s1] L_hat=1.7291 LCB=1.6188 adj=0.6256 NDCG@20=0.1895
+    [google_connecticut_random_e1_popularity_s2_d64_e6] training
+      epoch 1/6 loss=7.6324 (21s)
+      epoch 2/6 loss=5.8303 (21s)
+      epoch 3/6 loss=4.7339 (21s)
+      epoch 4/6 loss=4.3513 (21s)
+      epoch 5/6 loss=4.1666 (21s)
+      epoch 6/6 loss=4.0557 (20s)
+    [random/popularity/s2] L_hat=1.7300 LCB=1.6198 adj=0.6265 NDCG@20=0.1899
+    [google_connecticut_random_e1_popularity_s3_d64_e6] training
+      epoch 1/6 loss=7.6318 (20s)
+      epoch 2/6 loss=5.8362 (20s)
+      epoch 3/6 loss=4.7394 (21s)
+      epoch 4/6 loss=4.3525 (21s)
+      epoch 5/6 loss=4.1664 (21s)
+      epoch 6/6 loss=4.0558 (21s)
+    [random/popularity/s3] L_hat=1.7302 LCB=1.6199 adj=0.6267 NDCG@20=0.1905
+    [google_connecticut_random_e1_inbatch_s0_d64_e6] training
+      epoch 1/6 loss=7.6257 (27s)
+      epoch 2/6 loss=5.8150 (27s)
+      epoch 3/6 loss=4.7267 (27s)
+      epoch 4/6 loss=4.3412 (27s)
+      epoch 5/6 loss=4.1539 (27s)
+      epoch 6/6 loss=4.0436 (27s)
+    [random/inbatch/s0] L_hat=1.7375 LCB=1.6272 adj=0.6340 NDCG@20=0.1897
+    [google_connecticut_random_e1_inbatch_s1_d64_e6] training
+      epoch 1/6 loss=7.6303 (27s)
+      epoch 2/6 loss=5.8138 (27s)
+      epoch 3/6 loss=4.7242 (27s)
+      epoch 4/6 loss=4.3414 (27s)
+      epoch 5/6 loss=4.1556 (27s)
+      epoch 6/6 loss=4.0453 (27s)
+    [random/inbatch/s1] L_hat=1.7305 LCB=1.6202 adj=0.6270 NDCG@20=0.1896
+    [google_connecticut_random_e1_inbatch_s2_d64_e6] training
+      epoch 1/6 loss=7.6322 (27s)
+      epoch 2/6 loss=5.8260 (27s)
+      epoch 3/6 loss=4.7247 (27s)
+      epoch 4/6 loss=4.3418 (27s)
+      epoch 5/6 loss=4.1566 (27s)
+      epoch 6/6 loss=4.0460 (27s)
+    [random/inbatch/s2] L_hat=1.7334 LCB=1.6231 adj=0.6299 NDCG@20=0.1900
+    [google_connecticut_random_e1_inbatch_s3_d64_e6] training
+      epoch 1/6 loss=7.6313 (27s)
+      epoch 2/6 loss=5.8303 (27s)
+      epoch 3/6 loss=4.7289 (27s)
+      epoch 4/6 loss=4.3422 (27s)
+      epoch 5/6 loss=4.1557 (27s)
+      epoch 6/6 loss=4.0454 (27s)
+    [random/inbatch/s3] L_hat=1.7344 LCB=1.6241 adj=0.6309 NDCG@20=0.1905
+    [google_connecticut_random_e1_inbatch_logq_s0_d64_e6] training
+      epoch 1/6 loss=8.4942 (30s)
+      epoch 2/6 loss=6.1401 (30s)
+      epoch 3/6 loss=4.8835 (29s)
+      epoch 4/6 loss=4.5044 (28s)
+      epoch 5/6 loss=4.3246 (27s)
+      epoch 6/6 loss=4.2201 (27s)
+    [random/inbatch_logq/s0] L_hat=2.5404 LCB=2.4301 adj=1.4369 NDCG@20=0.3229
+    [google_connecticut_random_e1_inbatch_logq_s1_d64_e6] training
+      epoch 1/6 loss=8.4910 (27s)
+      epoch 2/6 loss=6.1374 (27s)
+      epoch 3/6 loss=4.8807 (27s)
+      epoch 4/6 loss=4.5035 (27s)
+      epoch 5/6 loss=4.3263 (27s)
+      epoch 6/6 loss=4.2219 (27s)
+    [random/inbatch_logq/s1] L_hat=2.5319 LCB=2.4216 adj=1.4284 NDCG@20=0.3223
+    [google_connecticut_random_e1_inbatch_logq_s2_d64_e6] training
+      epoch 1/6 loss=8.4983 (27s)
+      epoch 2/6 loss=6.1659 (27s)
+      epoch 3/6 loss=4.8839 (27s)
+      epoch 4/6 loss=4.5049 (27s)
+      epoch 5/6 loss=4.3276 (27s)
+      epoch 6/6 loss=4.2218 (27s)
+    [random/inbatch_logq/s2] L_hat=2.5353 LCB=2.4250 adj=1.4318 NDCG@20=0.3225
+    [google_connecticut_random_e1_inbatch_logq_s3_d64_e6] training
+      epoch 1/6 loss=8.4972 (27s)
+      epoch 2/6 loss=6.1602 (27s)
+      epoch 3/6 loss=4.8874 (27s)
+      epoch 4/6 loss=4.5054 (27s)
+      epoch 5/6 loss=4.3267 (27s)
+      epoch 6/6 loss=4.2224 (27s)
+    [random/inbatch_logq/s3] L_hat=2.5352 LCB=2.4249 adj=1.4317 NDCG@20=0.3223
+  wrote results_final_google_connecticut/google_connecticut/e1_arms.csv  (16 rows)
+  wrote results_final_google_connecticut/google_connecticut/e2_crosscert.csv  (51 rows)
+  NOTE e3 is a diagnostic: zbar comes from the scored users, so it gives no lower bound.
+  wrote results_final_google_connecticut/google_connecticut/e3_itemonly.csv  (8 rows)
+      5-core on TRAIN ROWS ONLY: 3,786,565 -> 2,315,422 train pairs (held-out rows never consulted)
+      CONTAINMENT [random]  (train universe must be a subset of the full log)
+        USERS : full log    1,246,484   train universe      144,270   retention  11.6%   subset? YES
+        ITEMS : full log       48,432   train universe       33,716   retention  69.6%   subset? YES
+        TEST  : held-out pairs      420,730   kept after the warm-start filter    243,114   retention  57.8%
+
+  === E3b CAPACITY CONTROL [random]  dim=128 epochs=12 item_bias=5 -> G=15.0  hw=0.1512
+    [google_connecticut_random_e3b_uniform_s0_d128_e12_b5] training
+      epoch 1/12 loss=6.7394 (32s)
+      epoch 2/12 loss=4.6732 (32s)
+      epoch 3/12 loss=3.6667 (32s)
+      epoch 4/12 loss=3.3224 (32s)
+      epoch 5/12 loss=3.1501 (32s)
+      epoch 6/12 loss=3.0453 (32s)
+      epoch 7/12 loss=2.9760 (32s)
+      epoch 8/12 loss=2.9295 (32s)
+      epoch 9/12 loss=2.8953 (32s)
+      epoch 10/12 loss=2.8690 (32s)
+      epoch 11/12 loss=2.8415 (31s)
+      epoch 12/12 loss=2.8206 (31s)
+    [random/uniform/R=uniform] L=2.6612 LCB=2.5100 | point -hon=+1.7549 -orc=+1.6725 | conservative -hon=+1.5979 -orc=+1.5158
+    [random/uniform/R=sqrt_pop] L=1.8157 LCB=1.6645 | point -hon=+1.5898 -orc=+1.5074 | conservative -hon=+1.4357 -orc=+1.3534
+    [random/uniform/R=popularity] L=1.0744 LCB=0.9232 | point -hon=+1.0744 -orc=+0.9921 | conservative -hon=+0.9232 -orc=+0.8394
+    [google_connecticut_random_e3b_popularity_s0_d128_e12_b5] training
+      epoch 1/12 loss=7.2634 (33s)
+      epoch 2/12 loss=5.5270 (32s)
+      epoch 3/12 loss=4.5244 (34s)
+      epoch 4/12 loss=4.1678 (33s)
+      epoch 5/12 loss=3.9934 (34s)
+      epoch 6/12 loss=3.8902 (33s)
+      epoch 7/12 loss=3.8225 (33s)
+      epoch 8/12 loss=3.7738 (33s)
+      epoch 9/12 loss=3.7370 (32s)
+      epoch 10/12 loss=3.7076 (32s)
+      epoch 11/12 loss=3.6835 (32s)
+      epoch 12/12 loss=3.6632 (32s)
+    [random/popularity/R=uniform] L=1.7776 LCB=1.6263 | point -hon=+0.8713 -orc=+0.7889 | conservative -hon=+0.7143 -orc=+0.6322
+    [random/popularity/R=sqrt_pop] L=1.7700 LCB=1.6188 | point -hon=+1.5441 -orc=+1.4617 | conservative -hon=+1.3900 -orc=+1.3077
+    [random/popularity/R=popularity] L=1.7587 LCB=1.6074 | point -hon=+1.7587 -orc=+1.6764 | conservative -hon=+1.6074 -orc=+1.5237
+    [google_connecticut_random_e3b_inbatch_logq_s0_d128_e12_b5] training
+      epoch 1/12 loss=7.6611 (42s)
+      epoch 2/12 loss=5.5717 (41s)
+      epoch 3/12 loss=4.5238 (41s)
+      epoch 4/12 loss=4.1676 (41s)
+      epoch 5/12 loss=3.9919 (42s)
+      epoch 6/12 loss=3.8866 (41s)
+      epoch 7/12 loss=3.8168 (42s)
+      epoch 8/12 loss=3.7659 (42s)
+      epoch 9/12 loss=3.7280 (42s)
+      epoch 10/12 loss=3.6978 (42s)
+      epoch 11/12 loss=3.6731 (42s)
+      epoch 12/12 loss=3.6515 (42s)
+    [random/inbatch_logq/R=uniform] L=2.6688 LCB=2.5175 | point -hon=+1.7625 -orc=+1.6800 | conservative -hon=+1.6055 -orc=+1.5234
+    [random/inbatch_logq/R=sqrt_pop] L=1.8075 LCB=1.6563 | point -hon=+1.5816 -orc=+1.4992 | conservative -hon=+1.4275 -orc=+1.3452
+    [random/inbatch_logq/R=popularity] L=1.0566 LCB=0.9054 | point -hon=+1.0566 -orc=+0.9743 | conservative -hon=+0.9054 -orc=+0.8216
+
+  E3b VERDICT   PER SPLIT (half-width 0.1512; verdicts use the CONSERVATIVE
+    column L_lcb - baseline - baseline_MC95, so the model's Hoeffding interval AND
+    the baseline's Monte-Carlo error are both already inside the number)
+    --- random
+      vs HONEST baseline: point +1.7625   conservative +1.6074  -> model carries real personalised signal
+      vs ORACLE floor   : point +1.6800   conservative +1.5237  -> clears the floor; the adjusted certificate is NON-EMPTY on this split
+  wrote results_final_google_connecticut/google_connecticut/e3b_capacity.csv  (9 rows)
+      5-core on TRAIN ROWS ONLY: 3,786,565 -> 2,315,422 train pairs (held-out rows never consulted)
+      CONTAINMENT [random]  (train universe must be a subset of the full log)
+        USERS : full log    1,246,484   train universe      144,270   retention  11.6%   subset? YES
+        ITEMS : full log       48,432   train universe       33,716   retention  69.6%   subset? YES
+        TEST  : held-out pairs      420,730   kept after the warm-start filter    243,114   retention  57.8%
+
+  === E4 [random]  calib 30,000 cert 110,000 (disjoint) hw=0.1103 drift=0.0822  range(log P_+)=5.97
+    [google_connecticut_random_e4_a0_s0_d64_e6] training
+      epoch 1/6 loss=7.5079 (20s)
+      epoch 2/6 loss=5.0989 (18s)
+      epoch 3/6 loss=3.9865 (19s)
+      epoch 4/6 loss=3.6211 (20s)
+      epoch 5/6 loss=3.4485 (21s)
+      epoch 6/6 loss=3.3463 (20s)
+    [random/a0/s0] L=2.5195 LCB=2.4092 adj_hon=1.6132 adj_orc=1.4160
+    [google_connecticut_random_e4_a0_s1_d64_e6] training
+      epoch 1/6 loss=7.5135 (22s)
+      epoch 2/6 loss=5.0960 (20s)
+      epoch 3/6 loss=3.9824 (20s)
+      epoch 4/6 loss=3.6235 (19s)
+      epoch 5/6 loss=3.4513 (19s)
+      epoch 6/6 loss=3.3516 (19s)
+    [random/a0/s1] L=2.5168 LCB=2.4065 adj_hon=1.6105 adj_orc=1.4133
+    [google_connecticut_random_e4_a0.25_s0_d64_e6] training
+      epoch 1/6 loss=7.5945 (19s)
+      epoch 2/6 loss=5.4503 (19s)
+      epoch 3/6 loss=4.2998 (19s)
+      epoch 4/6 loss=3.9312 (19s)
+      epoch 5/6 loss=3.7558 (19s)
+      epoch 6/6 loss=3.6562 (19s)
+    [random/a0.25/s0] L=2.1444 LCB=2.0341 adj_hon=1.6323 adj_orc=1.4370
+    [google_connecticut_random_e4_a0.25_s1_d64_e6] training
+      epoch 1/6 loss=7.5984 (19s)
+      epoch 2/6 loss=5.4495 (19s)
+      epoch 3/6 loss=4.2969 (19s)
+      epoch 4/6 loss=3.9306 (19s)
+      epoch 5/6 loss=3.7585 (19s)
+      epoch 6/6 loss=3.6564 (19s)
+    [random/a0.25/s1] L=2.1443 LCB=2.0340 adj_hon=1.6322 adj_orc=1.4369
+    [google_connecticut_random_e4_a0.5_s0_d64_e6] training
+      epoch 1/6 loss=7.6200 (19s)
+      epoch 2/6 loss=5.6718 (19s)
+      epoch 3/6 loss=4.5419 (19s)
+      epoch 4/6 loss=4.1637 (19s)
+      epoch 5/6 loss=3.9822 (19s)
+      epoch 6/6 loss=3.8752 (19s)
+    [random/a0.5/s0] L=1.8627 LCB=1.7524 adj_hon=1.6368 adj_orc=1.4427
+    [google_connecticut_random_e4_a0.5_s1_d64_e6] training
+      epoch 1/6 loss=7.6246 (19s)
+      epoch 2/6 loss=5.6728 (19s)
+      epoch 3/6 loss=4.5357 (19s)
+      epoch 4/6 loss=4.1620 (19s)
+      epoch 5/6 loss=3.9822 (19s)
+      epoch 6/6 loss=3.8776 (19s)
+    [random/a0.5/s1] L=1.8604 LCB=1.7501 adj_hon=1.6345 adj_orc=1.4403
+    [google_connecticut_random_e4_a0.75_s0_d64_e6] training
+      epoch 1/6 loss=7.6253 (19s)
+      epoch 2/6 loss=5.7684 (19s)
+      epoch 3/6 loss=4.6767 (19s)
+      epoch 4/6 loss=4.2999 (19s)
+      epoch 5/6 loss=4.1162 (19s)
+      epoch 6/6 loss=4.0067 (19s)
+    [random/a0.75/s0] L=1.6823 LCB=1.5720 adj_hon=1.6268 adj_orc=1.4335
+    [google_connecticut_random_e4_a0.75_s1_d64_e6] training
+      epoch 1/6 loss=7.6303 (19s)
+      epoch 2/6 loss=5.7687 (19s)
+      epoch 3/6 loss=4.6729 (19s)
+      epoch 4/6 loss=4.2992 (19s)
+      epoch 5/6 loss=4.1167 (19s)
+      epoch 6/6 loss=4.0077 (19s)
+    [random/a0.75/s1] L=1.6815 LCB=1.5712 adj_hon=1.6260 adj_orc=1.4327
+    [google_connecticut_random_e4_a1_s0_d64_e6] training
+      epoch 1/6 loss=7.6260 (19s)
+      epoch 2/6 loss=5.8197 (19s)
+      epoch 3/6 loss=4.7374 (19s)
+      epoch 4/6 loss=4.3515 (19s)
+      epoch 5/6 loss=4.1641 (19s)
+      epoch 6/6 loss=4.0532 (19s)
+    [random/a1/s0] L=1.6209 LCB=1.5106 adj_hon=1.6209 adj_orc=1.4284
+    [google_connecticut_random_e4_a1_s1_d64_e6] training
+      epoch 1/6 loss=7.6301 (19s)
+      epoch 2/6 loss=5.8179 (19s)
+      epoch 3/6 loss=4.7340 (19s)
+      epoch 4/6 loss=4.3515 (19s)
+      epoch 5/6 loss=4.1654 (19s)
+      epoch 6/6 loss=4.0549 (19s)
+    [random/a1/s1] L=1.6185 LCB=1.5082 adj_hon=1.6185 adj_orc=1.4259
+    [google_connecticut_random_e4_a1.25_s0_d64_e6] training
+      epoch 1/6 loss=7.6195 (19s)
+      epoch 2/6 loss=5.8239 (19s)
+      epoch 3/6 loss=4.7264 (19s)
+      epoch 4/6 loss=4.3302 (19s)
+      epoch 5/6 loss=4.1402 (19s)
+      epoch 6/6 loss=4.0292 (19s)
+    [random/a1.25/s0] L=1.6737 LCB=1.5634 adj_hon=1.6216 adj_orc=1.4297
+    [google_connecticut_random_e4_a1.25_s1_d64_e6] training
+      epoch 1/6 loss=7.6228 (19s)
+      epoch 2/6 loss=5.8199 (19s)
+      epoch 3/6 loss=4.7233 (19s)
+      epoch 4/6 loss=4.3311 (19s)
+      epoch 5/6 loss=4.1426 (19s)
+      epoch 6/6 loss=4.0309 (19s)
+    [random/a1.25/s1] L=1.6695 LCB=1.5593 adj_hon=1.6175 adj_orc=1.4255
+  wrote results_final_google_connecticut/google_connecticut/e4_invariance.csv  (12 rows)
+  wrote results_final_google_connecticut/google_connecticut/e7_zbar.csv  (36 rows)
+  wrote results_final_google_connecticut/google_connecticut/metrics_long.csv  (782 rows)
+
+====================================================================================================
+PASTE-ME SUMMARY   dataset=google_connecticut
+====================================================================================================
+
+[E1] four training laws, certified under UNIFORM negatives
+  split     law                         L_hat   adjusted   NDCG@20  seeds
+  random    inbatch            1.7339 +/-0.0029     0.6304    0.1900      4
+  random    inbatch_logq       2.5357 +/-0.0035     1.4322    0.3225      4
+  random    popularity         1.7306 +/-0.0018     0.6272    0.1898      4
+  random    uniform            2.5192 +/-0.0037     1.4157    0.3185      4
+  [random] PAIRED Delta(uniform - popularity) over 4 seeds: +0.7885 +/- 0.0022 (SD), SE 0.0011   per seed: [0.7905 0.7865 0.7904 0.7867]
+  [random] PAIRED in-batch deficit ratio over 4 seeds: 1.45x +/- 0.00
+  [random] PAIRED logQ recovery over 4 seeds: 102.1% +/- 0.2%
+
+[E2] cross-certification, L_hat (rows = training law, cols = reference)
+  --- random
+    law                   uniform      sqrt_pop    popularity
+    uniform                2.5192        1.7974        1.2015
+    popularity             1.7306        1.6661        1.6190
+    inbatch                1.7339        1.6711        1.6243
+    inbatch_logq           2.5357        1.8097        1.1996
+    [Lambda_R]             0.9932        0.3098        0.0822
+    [oracle]               0.9887        0.3083        0.0823
+    [honest]               0.9063        0.2259        0.0000
+    PAIRED diagonal dominance under R=popularity over 4 seeds: +0.4175 +/- 0.0029 (SD)   per seed: [0.4151 0.415  0.4205 0.4196]
+
+[E4] matched train+certify sweep over R_alpha ~ P_tr^alpha
+  --- random   drift=0.0822  hw=0.1103
+      alpha     L_hat   adj_honest  adj_oracle_LCB  identity_dev  seeds
+          0    2.5182       1.6118          1.4147       +0.0002      2
+       0.25    2.1443       1.6322          1.4369       +0.0001      2
+        0.5    1.8615       1.6357          1.4415       +0.0001      2
+       0.75    1.6819       1.6264          1.4331       +0.0001      2
+          1    1.6197       1.6197          1.4272       +0.0001      2
+       1.25    1.6716       1.6195          1.4276       +0.0001      2
+    adj_honest spread=0.0238 (hw=0.1103)   corr(alpha)=-0.051   oracle-adjusted nonzero: 6/6
+
+[E7] zbar variants -- AUDIT then calibrated residual (read calib_FIXED only)
+  --- random   target range(log P_+) = 5.97 nats
+    zbar            item_only_range  item_only_R2  spread(L)   min LCB   max LCB
+    cert_LEAKY                0.000         0.000     0.4612    1.5066    1.9678
+    train                     0.407         0.139     0.5072    1.5079    2.0151
+    calib_FIXED               0.064         0.004     0.4601    1.5068    1.9669
+    READ-OFF calib_FIXED: item-only 0.064 nats = 1.07% of the 5.97-nat target range -> SOUND
+      (1) PRE-REGISTERED alpha=1 (fixed by --preregister-alpha before the run), 95% LCB = 1.5068 nats = 15.21% of D   <- this one needs no multiplicity correction
+          [POST-HOC best alpha=0 gives 1.9669 -- selected after seeing the results, NOT quotable as a 95% bound]
+      (2) PER SEED, simultaneous over 6 refs (delta=0.05/6, hw 0.1344): s0=1.4838  s1=1.4815
+      (3) JOINT over all 12 (alpha,seed) cells (delta=0.05/12, hw 0.1427): min LCB = 1.4732 nats = 14.88% of D
+          (3) covers the 12 FIXED (alpha,seed) cells, conditional on the calibration procedure; it does not license any further data-dependent selection.
+      QUOTE (1) if the alpha was pre-registered, else (3). The uncorrected min of 6 per-seed-averaged 95% LCBs is 1.5068; averaging LCBs across seeds bounds only the seed-AVERAGE of L, and its joint coverage is 1-12*0.05 = 40%, so it is not a simultaneous bound at all.
+
+====================================================================================================
+
+done. everything under results_final_google_connecticut/google_connecticut/
+paste the PASTE-ME SUMMARY block; the CSVs are for plotting.
