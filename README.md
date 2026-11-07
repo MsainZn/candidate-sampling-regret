@@ -1,4 +1,4 @@
-# Selecting a recommender system when the evaluation protocol is uncertain
+# A Regret-Based Approach For Selecting Recommender Systems Under Evaluation Uncertainty
 
 Code and results for the paper
 
